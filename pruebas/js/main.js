@@ -3,6 +3,8 @@ const mainHTML = document.getElementById("main1");
 //mostramos una variable por consola
 let userName = "Pepe";
 
+//variable para sumar 
+
 console.log("Nombre de usuario logueado: " + userName);
 
 userName = 5;
@@ -35,3 +37,30 @@ newButtonMain.addEventListener("click", function (){
     newButtonMain.style.backgroundColor = "green";
 })
 
+var a = 5;
+
+// //funcion que va concatenando o sumando el input
+// document.getElementById("numItemsCarrito").addEventListener("input", function (){
+//         a+=parseInt(this.value);
+//         console.log(a);
+         
+// })
+
+
+//arrays de literales
+
+var alumno = ["Pepe", true, 5.67, null, {name:"Ana", curso:"2ºDAW"}, [7,8.3,9.5], undefined];
+
+console.dir("Mi array es: " + alumno);
+console.log("Longitud de mi array: " + alumno.length);
+
+//Añado otro item a mi array en la última posición
+alumno[alumno.length] = "Maria";
+console.dir("Mi array es: " + alumno);
+
+a = "5";
+if (a === 5) {
+    console.log("A es igual a 5");
+}else{
+    console.log("A no es igual a 5")
+}
