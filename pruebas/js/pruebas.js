@@ -41,7 +41,7 @@ const h1Header = document.getElementById("h1Header");
 
 for (let index = 0; index < miArray.length; index++) {
     h1Header.innerText += miArray[index] + "";
-    
+
 }
 
 //sumar dos numeros
@@ -50,8 +50,31 @@ let n2 = document.getElementById("n2");
 let botonSumar = document.getElementById("botonSumar");
 let resultadoSuma = document.getElementById("resultadoSuma");
 
+/**
+ * Estamos diciendo aqui que cuando le da al botón se haga la funcion doSumas
+ */
+// botonSumar.onclick = doSuma;
 
-botonSumar.onclick = doSuma;
+
+//vamos a hacer lo del boton pero con funciones
+botonSumar.addEventListener("click", function(){
+    alert("Has pulsado el botón");
+});
+
+//con funciones anonimas
+botonSumar.onclick = function (){
+    alert("NO PULSES ");
+}
+
+botonSumar.onmouseover = function (){
+    this.style.backgroundColor = "#446812";
+    this.style.color = "#fff";
+}
+
+botonSumar.onmouseleave = function (){
+    this.style.backgroundColor = "";
+    this.style.color = "";
+}
 
 //FUNCIONES ////////////////////////////////////////
 
@@ -60,16 +83,28 @@ botonSumar.onclick = doSuma;
  * tenemos que parsear los parametros porque el typeof nos devuelve un string
  * hacemos la verificacion y la suma
  * reseteamos los valores a 0 para que el usuario no tenga que hacer nada
+ * 
+ * NUEVO CAMBIO
+ * HACEMOS QUE ESTA FUNCION PUEDA FUNCIONAR POR PARAMETRO Y SIN PARAMETRO
  */
-function doSuma (){
-    a = parseFloat (n1.value);
-    b = parseFloat (n2.value);
+function doSuma(dato_1, dato_2) {
+    //Arguments es un array que crea js automaticamente al hacer una funcion con todos los parametros dentro
+    console.dir(arguments);
 
-    if ((typeof a == "number" ) && (typeof b == "number") ) {
-        resultadoSuma.innerHTML += a + b;
+    //esto se hace para que pueda poner un dato u otro teniendo preferencia el primero
+    let a = dato_1 || parseFloat(n1.value);
+    let b = dato_2 || parseFloat(n2.value);
+    let result = 0;
+
+         
+    if ((typeof a == "number") && (typeof b == "number")) {
+        result = a+b;
+        resultadoSuma.innerHTML = "Resultado es: " +result;
         n1.value = "0";
         n2.value = "0";
-    }else{
+    } else {
         resultadoSuma.innerHTML += "Valores no válidos para hacer la suma";
     }
+
+    return result;
 }
