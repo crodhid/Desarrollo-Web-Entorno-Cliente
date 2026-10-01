@@ -1,0 +1,18 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: lightgray;
+}
+
+h1 {
+    color: blue;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+}
+
+#texto {
+    color: green;
+}
