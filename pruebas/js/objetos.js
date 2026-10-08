@@ -76,3 +76,20 @@ for (let data of myAlums) {
 Object.preventExtensions(myAlumn);
 myAlumn.paco = "PACOOOOO";
 
+/**
+ * probamos las urls
+ */
+const url = "https://www.marca.com/tenis/2026/10/08/ferrero-desvela-batalla-perdida-alcaraz-descarta-entrenar-sinner-dicen-seria-etico.html";
+
+h11.innerHTML = encodeURI(url) + "<br>" + encodeURIComponent("shakira mola mundial &.mp3");
+
+/**
+ * Con el eval le metes una cadena y la ejecuta como si fuera codigo
+ */
+
+// eval("h11.innerHTML = 'hola'");
+
+/**
+ * Números aleatorios entre 0 y 100
+ */
+h11.innerText= "Random: " + ((Math.random() * 99) + 1);
