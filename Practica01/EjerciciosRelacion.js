@@ -275,16 +275,272 @@ let ejercicio10 = document.getElementById("ejercicio10");
 
 /**
  * Esto sería la función arrow
+ * en la cual estoy comprobando si los números son primos o no
  */
-botonComprobarArrow.addEventListener("click", () =>{
+botonComprobarArrow.addEventListener("click", () => {
     let num1 = Number(numeroArrow.value);
 
     if (num1 % 2 == 0) {
-    ejercicio10.innerHTML = "El número: " + num1 + " es par";
-    }else{
-    ejercicio10.innerHTML = "El número: " + num1 + " es impar";
+        ejercicio10.innerHTML = "El número: " + num1 + " es par";
+    } else {
+        ejercicio10.innerHTML = "El número: " + num1 + " es impar";
 
     }
 
 })
+
+/**
+ * Ejercicio 11
+ * Pagina que genera el juego del pum hasta 100
+ * Cuando encuentra un múltiplo de 7 escribe PUM y cambia de renglón
+ */
+
+let botonPum = document.getElementById("botonPum");
+let botonPumGeneradores = document.getElementById("botonPumGeneradores");
+let ejercicio11 = document.getElementById("ejercicio11");
+
+
+
+function PUM() {
+    //limpio mi parrafo
+    ejercicio11.innerHTML = "";
+    for (let i = 1; i <= 100; i++) {
+        if ((i % 10 == 7) || (i % 7 == 0)) {
+            ejercicio11.innerHTML += "PUM <br>";
+        } else {
+            ejercicio11.innerHTML += i + ", "
+        }
+    }
+}
+botonPum.addEventListener("click", PUM);
+
+/**
+ * Ahora lo hago con generadores
+ */
+
+function* generadorPum() {
+    ejercicio11.innerHTML = ""; // limpia el resultado anterior
+
+    for (let i = 1; i <= 100; i++) {
+        if (i % 7 === 0 || i % 10 === 7) {
+            ejercicio11.innerHTML += "PUM<br>";
+            yield "PUM";
+        } else {
+            ejercicio11.innerHTML += i + ", ";
+            yield i;
+        }
+    }
+}
+
+function jugarPumGeneradores() {
+    for (const valor of generadorPum()) {
+        // no hace falta hacer nada: al pedir cada valor, el generador ya escribe en la página
+    }
+}
+
+botonPumGeneradores.addEventListener("click", jugarPumGeneradores);
+
+/**
+ * Ejercicio 12
+ * 
+ */
+
+let botonConteo = document.getElementById("botonConteo");
+let ejercicio12 = document.getElementById("ejercicio12");
+
+
+/**
+ * Funcion en la cual estoy generando números hasta 300
+ * Si es multiplo de 4 aumento 4px y pongo color verde
+ * Si es multiplo de 9 aumento 2px y pongo color rojo
+ * Tengo que crear un elemento span para poder modificar los 
+ * estilos ya que directamente estaría todo el rato modificando
+ * lo mismo
+ */
+function contar() {
+    ejercicio12.innerHTML = ""; // limpio el contenedor
+
+    // tamaño de letra actual en píxeles (por ejemplo 16)
+    const tamañoBase = parseFloat(getComputedStyle(ejercicio12).fontSize);
+
+    for (let i = 1; i <= 300; i++) {
+        // creo un span donde van a estar los números para
+        //poder modificarle despues los estilos
+        const numero = document.createElement("span");
+        numero.innerHTML = i + ", ";
+
+        if (i % 4 === 0) {
+            numero.style.fontSize = (tamañoBase + 4) + "px";
+            numero.style.color = "green";
+        } else if (i % 9 === 0) {
+            numero.style.fontSize = (tamañoBase + 2) + "px";
+            numero.style.color = "red";
+        }
+
+        /**
+         * Tiene que ser con appenChild, porque número al ser un
+         * elemento del dom y no un número como tal
+         * con innerHTML no iria
+         */
+        ejercicio12.appendChild(numero);
+
+        // corto la línea DESPUÉS de cada 10 números
+        if (i % 10 === 0) {
+            ejercicio12.innerHTML += "<br>";
+        }
+    }
+}
+
+botonConteo.addEventListener("click", contar);
+
+/**
+ * Ejercicio 13
+ * Generar 36000 dados, guardando la suma en un array las veces que ha salido
+ * posicion 0 = 2, 1=3, asi todo el rato siendo la posicion una 
+ * menos que el resultado de la suma
+ */
+
+let botonDados = document.getElementById("botonDados");
+let ejercicio13 = document.getElementById("ejercicio13");
+let miArray = [0,0,0,0,0,0,0,0,0,0,0];
+function lanzamientoDados() {
+    for (let i = 0; i < 36000; i++) {
+        let num1 = Math.floor(Math.random() * 6) + 1;
+        let num2 = Math.floor(Math.random() * 6) + 1;
+        let suma = num1 + num2;
+        /**
+         * Switch para ir sumando dentro del array
+         */
+        switch (suma) {
+            case 2:
+                miArray[0]++;
+                break;
+            case 3:
+                miArray[1]++;
+                break;
+            case 4:
+                miArray[2]++;
+                break;
+            case 5:
+                miArray[3]++;
+                break;
+            case 6:
+                miArray[4]++;
+                break;
+            case 7:
+                miArray[5]++;
+                break;
+            case 8:
+                miArray[6]++;
+                break;
+            case 9:
+                miArray[7]++;
+                break;
+            case 10:
+                miArray[8]++;
+                break;
+            case 11:
+                miArray[9]++;
+                break;
+            case 12:
+                miArray[10]++;
+                break;
+            default:
+                break;
+        }
+    }
+    let contador = 2;
+    for(let i = 0; i<miArray.length ;i++){
+    ejercicio13.innerHTML += "La suma con resultado: "+ contador + " ha salido: " + miArray[i] + " veces <br>"; 
+    contador++;
+    }
+}
+
+botonDados.addEventListener("click", lanzamientoDados);
+
+/**
+ * Ejercicio 14
+ * Tengo que recoger una lista de números y que cuando pulse
+ * 0 se muestren los números parando la recogida de ellos
+ */
+
+let botonAgregarNumero = document.getElementById("botonAgregarNumero");
+let ejercicio14 = document.getElementById("ejercicio14");
+let inputEjercicio14 = document.getElementById("inputEjercicio14");
+let miArrayEj14 = [];
+
+/**
+ * Se ejecuta en cada clic: lee un número, lo guarda
+ * y, si es 0, termina la recogida y muestra los resultados.
+ */
+function agregarNumero() {
+    // Validaciones: que no esté vacío y que sea entero
+    if (inputEjercicio14.value === "") {
+        ejercicio14.innerHTML = "Introduce un número.";
+        return;
+    }
+    let numero = Number(inputEjercicio14.value);
+    
+/**
+ * Si es distinto de 0 llamo a guardar numero que lo mete en mi array, reseteo el input y voy mostrando cuantos números 
+ * lleva guardados
+ */
+    if (numero !== 0) {
+        guardarNumero(numero);
+        ejercicio14.innerHTML = "Números guardados: " + miArrayEj14.length;
+        inputEjercicio14.value = "";
+    } else {
+        mostrarResultado();
+    }
+}
+
+/**
+ * Guarda el número que le llega como parámetro
+ */
+function guardarNumero(numero) {
+    miArrayEj14.push(numero);
+}
+
+/**
+ * Muestra la lista en orden descendente, el mayor, el menor
+ * y cuántas veces aparece cada uno (apartado c)
+ */
+function mostrarResultado() {
+
+    /**
+     * Primero tengo que ordenar el array de forma descendente
+     * esto va comparando los parámetros y hace el ultimo menos el primero, asi sería de forma descendente, si fuera ascendente
+     * sería al revés
+     */
+    miArrayEj14.sort((a,b) => b-a);
+
+
+    ejercicio14.innerHTML = "Números guardados: "
+    for(let i = 0; i < miArrayEj14.length ; i++){
+        ejercicio14.innerHTML+= miArrayEj14[i] +", ";
+    }
+
+    sumarNumArray();
+
+}
+
+/**
+ * Función para sumar todos los números de mi array ordenado,
+ * solo funciona si el array está ordenado previamente
+ */
+function sumarNumArray() {
+    let suma = 1;
+    for(let i =1; i < miArrayEj14.length ; i++){
+        let num  = miArray[i-1];
+        if (miArray[i] != num) {
+            ejercicio14.innerHTML += "<br>El número: " + num +"ha salido: " + suma + " veces";
+        }else{
+            suma++;
+        }
+    }
+}
+
+botonAgregarNumero.addEventListener("click", agregarNumero);
+
+
 
