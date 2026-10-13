@@ -1,40 +1,43 @@
-*{
+* {
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     margin: 0%;
     padding: 0%;
 }
 
-html, body{
+html, body {
     width: 100%;
     height: 100%;
 }
 
-header{
-    background-color: blueviolet;
+header {
     width: 100%;
     height: 10%;
-}
-
-
-aside{
     background-color: aqua;
-    width: 30%;
-    height: 80%;
+}
+
+
+main {
     float: left;
-}
-
-main{
-    background-color: aquamarine;
-    width: 70%;
     height: 80%;
-    float: right;
-
-}
-
-footer{
-    clear: both;
-    background-color: rgb(34, 85, 68);
     width: 100%;
-    height: 10%;
+    background-color: darkblue;
+    color: white;
 }
+
+footer {
+    clear: both;
+    height: 10%;
+    width: 100%;
+    background-color: rgb(62, 204, 157);
+}
+
+jose-luis div {
+    width: 30%;
+    height: 20%;
+}
+
+input {
+    text-align: center;
+}
+

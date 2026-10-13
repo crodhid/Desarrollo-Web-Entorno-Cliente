@@ -5,26 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pruebas</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/objetos.js" defer></script>
-    <!-- Esta linea es para que los usuarios que no tienen javascript activado lo sepan que no le funcionaran-->
-    <noscript>ESTA PAGINA NECESITA TENER ACTIVADO JAVASCRIPT</noscript>
+    <script src="js/fechas.js" defer></script>
+    <noscript>
+        <h1>Esta app requiere JavaScript para su funcionamiento. Actívelo, please!!</h1>
+    </noscript>
 </head>
 <body>
     <header>
-        <h1 id="h1Header"></h1>
 
     </header>
-    <aside>
-        <h1>Panel lateral</h1>
-    </aside>
     <main id="main1">
-        <h1 id="h11">panel principal</h1>
-        <!-- <input type="text" id="campoTexto"> -->
-         
+        <p style="color:red; font-weight: bolder;" id="pError"><p>
+        <h2 id="h21"></h2>
+        <input type="datetime-local" id="calendario">
     </main>
     <footer>
         <h1>pie</h1>
     </footer>
-    
 </body>
 </html>

@@ -474,12 +474,12 @@ let miArrayEj14 = [];
  * y, si es 0, termina la recogida y muestra los resultados.
  */
 function agregarNumero() {
+    let numero = Number(inputEjercicio14.value);
     // Validaciones: que no esté vacío y que sea entero
-    if (inputEjercicio14.value === "") {
+    if (numero === "") {
         ejercicio14.innerHTML = "Introduce un número.";
         return;
     }
-    let numero = Number(inputEjercicio14.value);
     
 /**
  * Si es distinto de 0 llamo a guardar numero que lo mete en mi array, reseteo el input y voy mostrando cuantos números 
@@ -525,7 +525,7 @@ function mostrarResultado() {
 }
 
 /**
- * Función para sumar todos los números de mi array ordenado,
+ * Función para sumar las veces que ha salido cada número de mi array ordenado,
  * solo funciona si el array está ordenado previamente
  */
 function sumarNumArray() {
