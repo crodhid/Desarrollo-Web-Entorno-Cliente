@@ -402,7 +402,7 @@ botonConteo.addEventListener("click", contar);
 
 let botonDados = document.getElementById("botonDados");
 let ejercicio13 = document.getElementById("ejercicio13");
-let miArray = [0,0,0,0,0,0,0,0,0,0,0];
+let miArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 function lanzamientoDados() {
     for (let i = 0; i < 36000; i++) {
         let num1 = Math.floor(Math.random() * 6) + 1;
@@ -450,9 +450,9 @@ function lanzamientoDados() {
         }
     }
     let contador = 2;
-    for(let i = 0; i<miArray.length ;i++){
-    ejercicio13.innerHTML += "La suma con resultado: "+ contador + " ha salido: " + miArray[i] + " veces <br>"; 
-    contador++;
+    for (let i = 0; i < miArray.length; i++) {
+        ejercicio13.innerHTML += "La suma con resultado: " + contador + " ha salido: " + miArray[i] + " veces <br>";
+        contador++;
     }
 }
 
@@ -480,11 +480,11 @@ function agregarNumero() {
         ejercicio14.innerHTML = "Introduce un número.";
         return;
     }
-    
-/**
- * Si es distinto de 0 llamo a guardar numero que lo mete en mi array, reseteo el input y voy mostrando cuantos números 
- * lleva guardados
- */
+
+    /**
+     * Si es distinto de 0 llamo a guardar numero que lo mete en mi array, reseteo el input y voy mostrando cuantos números 
+     * lleva guardados
+     */
     if (numero !== 0) {
         guardarNumero(numero);
         ejercicio14.innerHTML = "Números guardados: " + miArrayEj14.length;
@@ -512,12 +512,12 @@ function mostrarResultado() {
      * esto va comparando los parámetros y hace el ultimo menos el primero, asi sería de forma descendente, si fuera ascendente
      * sería al revés
      */
-    miArrayEj14.sort((a,b) => b-a);
+    miArrayEj14.sort((a, b) => b - a);
 
 
     ejercicio14.innerHTML = "Números guardados: "
-    for(let i = 0; i < miArrayEj14.length ; i++){
-        ejercicio14.innerHTML+= miArrayEj14[i] +", ";
+    for (let i = 0; i < miArrayEj14.length; i++) {
+        ejercicio14.innerHTML += miArrayEj14[i] + ", ";
     }
 
     sumarNumArray();
@@ -530,11 +530,11 @@ function mostrarResultado() {
  */
 function sumarNumArray() {
     let suma = 1;
-    for(let i =1; i < miArrayEj14.length ; i++){
-        let num  = miArray[i-1];
+    for (let i = 1; i < miArrayEj14.length; i++) {
+        let num = miArray[i - 1];
         if (miArray[i] != num) {
-            ejercicio14.innerHTML += "<br>El número: " + num +"ha salido: " + suma + " veces";
-        }else{
+            ejercicio14.innerHTML += "<br>El número: " + num + "ha salido: " + suma + " veces";
+        } else {
             suma++;
         }
     }
@@ -543,4 +543,164 @@ function sumarNumArray() {
 botonAgregarNumero.addEventListener("click", agregarNumero);
 
 
+/**
+ * Ejercicio 15
+ * Invertir un array
+ */
+let botonInvertir = document.getElementById("botonInvertir");
+let ejercicio15 = document.getElementById("ejercicio15")
+let inputEjercicio15 = document.getElementById("inputEjercicio15");
+let miArrayInvertir = [];
 
+/**
+ * Funcion en la cual le llega la cadena y la convierto a un array separandola por comas, si no esta
+ * separada por comas no funciona bien.
+ * Una vez tenemos el array guardado calculamos la mitad con el resto de 2, si el resto es 0 entonces es par entonces se le resta
+ * 1 por ejemplo 4/2 = 2 entonces el indice de la mitad en el array seria 1, pero si es impar seria 5/2 = 2 resto 1 entonces no 
+ * se le resta nada para que la mitad sea 2 de indice array que seria el tercer elemento
+ */
+function invierteArray() {
+    let cadena = String(inputEjercicio15.value);
+    miArrayInvertir = cadena.split(",");
+    ejercicio15.innerHTML = "Array sin invertir: "
+    for (const elem of miArrayInvertir) {
+        ejercicio15.innerHTML += elem + "<br>";
+    }
+    ejercicio15.innerHTML += "Array invertido: "
+
+    let mitad;
+    if (miArrayInvertir.length % 2 === 0) {
+        mitad = (miArrayInvertir.length / 2) - 1;
+    }else{
+        mitad = (miArrayInvertir.length / 2);
+    }
+
+    let final = miArrayInvertir.length - 1;
+    let auxiliar;
+    /**
+     * Bucle para invertir mi array
+     */
+    for(let i = 0; i <= mitad; i++,final--){
+        auxiliar = miArrayInvertir[i];
+        miArrayInvertir[i] = miArrayInvertir[final];
+        miArrayInvertir[final] = auxiliar;
+    }
+
+    for (const elem of miArrayInvertir) {
+        ejercicio15.innerHTML += elem + "<br>";
+    }
+}
+
+botonInvertir.addEventListener("click", invierteArray);
+
+
+/**
+ * Ejercicio 16
+ * creador de contraseñas
+ */
+
+const CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*+-_";
+let inputEjercicio16 = document.getElementById("inputEjercicio16");
+let botonGeneradorContraseña = document.getElementById("botonGeneradorContraseña");
+let ejercicio16 = document.getElementById("ejercicio16");
+
+function creadorContraseñas(){
+    let numeroBytes = Number(inputEjercicio16.value);
+    let contraseña = "";
+    //Metemos en contraseña una posicion de mi array de caracteres random
+    while (contraseña.length != numeroBytes) {
+        //Esto lo que hace es que añadimos un caracter aleatorio al final de mi cadena, formateandolo a entero
+        //con el math.floor
+        contraseña += (CARACTERES.charAt(Math.floor(Math.random()*CARACTERES.length)));
+    }
+    ejercicio16.innerHTML += "Contraseña generada de " + numeroBytes + "Bytes." + "<br>" + contraseña;
+}
+botonGeneradorContraseña.addEventListener("click", creadorContraseñas);
+
+/**
+ * Ejercicio 17
+ * 
+ */
+let inputEjercicio17N1 = document.getElementById("inputEjercicio17N1");
+let inputEjercicio17N2 = document.getElementById("inputEjercicio17N2");
+let botonEntreNumeros = document.getElementById("botonEntreNumeros");
+let ejercicio17 = document.getElementById("ejercicio17");
+
+function numerosEntreDosEnteros() {
+    ejercicio17.innerHTML = "";
+    let menor = calcularMenor();
+    let mayor = 0;
+    if (menor == Number(inputEjercicio17N1.value)) {
+        mayor = Number(inputEjercicio17N2.value);
+    }else{
+        mayor = Number(inputEjercicio17N1.value);
+
+    }
+
+    if (menor == mayor) {
+        ejercicio17.innerHTML = "Los dos números son iguales";
+        return;
+    }
+    if (mayor == menor+1) {
+        ejercicio17.innerHTML = "No hay números enteros entre estos dos";
+        return;
+    }
+
+    //Bucle que va comparando menor con mayor simplemente
+    //Le sumo un número a menor para que no me inicie la comparación desde el mismo número entonces entre 
+    // 1 y 3 no me muestra 1 y 2 solo me muestra 2
+    for(menor++;menor<mayor;menor++){
+        ejercicio17.innerHTML += menor + " ";
+    }
+
+}
+
+function calcularMenor(){
+    
+    let menor = Math.max;
+    if (inputEjercicio17N1.value > inputEjercicio17N2.value) {
+        menor = Number(inputEjercicio17N2.value);
+    }else if (inputEjercicio17N1.value < inputEjercicio17N2.value) {
+        menor = Number(inputEjercicio17N1.value);
+    }else{
+        menor = Number(inputEjercicio17N1.value);
+    }
+    return menor;
+}
+
+botonEntreNumeros.addEventListener("click", numerosEntreDosEnteros);
+
+
+/**
+ * Ejercicio 18 menú de múltiplos
+ * Aqui para saber cual es el multiplo lo que tengo que hacer es como en el html ya le tengo asignado un value
+ * simplemente preguntando por menuEjercicio18.value me dice cual esta seleccionado y lo hago todo
+ */
+let inputEjercicio18 = document.getElementById("inputEjercicio18");
+let menuEjercicio18 = document.getElementById("menuEjercicio18");
+let botonMenu = document.getElementById("botonMenu");
+let ejercicio18 = document.getElementById("ejercicio18");
+
+function calcularMultiplo(){
+    let numero = Number(menuEjercicio18.value);
+    
+    switch (numero) {
+        case 0:
+            ejercicio18.innerHTML = "Ha salido del programa"
+            break;
+        case 1:
+            ejercicio18.innerHTML = numero%2==0?"Es múltiplo de dos":"No es múltiplo de dos";
+            break;
+        case 2:
+            ejercicio18.innerHTML = numero%3==0?"Es múltiplo de tres":"No es múltiplo de tres";
+            break;
+        case 3:
+            ejercicio18.innerHTML = numero%5==0?"Es múltiplo de cinco":"No es múltiplo de cinco";
+            break;    
+        default:
+            break;
+    }
+
+}
+
+botonMenu.addEventListener("click", calcularMultiplo);
