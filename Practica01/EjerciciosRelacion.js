@@ -571,7 +571,7 @@ function invierteArray() {
     let mitad;
     if (miArrayInvertir.length % 2 === 0) {
         mitad = (miArrayInvertir.length / 2) - 1;
-    }else{
+    } else {
         mitad = (miArrayInvertir.length / 2);
     }
 
@@ -580,7 +580,7 @@ function invierteArray() {
     /**
      * Bucle para invertir mi array
      */
-    for(let i = 0; i <= mitad; i++,final--){
+    for (let i = 0; i <= mitad; i++, final--) {
         auxiliar = miArrayInvertir[i];
         miArrayInvertir[i] = miArrayInvertir[final];
         miArrayInvertir[final] = auxiliar;
@@ -604,14 +604,15 @@ let inputEjercicio16 = document.getElementById("inputEjercicio16");
 let botonGeneradorContraseña = document.getElementById("botonGeneradorContraseña");
 let ejercicio16 = document.getElementById("ejercicio16");
 
-function creadorContraseñas(){
+function creadorContraseñas() {
+    inputEjercicio16.innerHTML = "";
     let numeroBytes = Number(inputEjercicio16.value);
     let contraseña = "";
     //Metemos en contraseña una posicion de mi array de caracteres random
     while (contraseña.length != numeroBytes) {
         //Esto lo que hace es que añadimos un caracter aleatorio al final de mi cadena, formateandolo a entero
         //con el math.floor
-        contraseña += (CARACTERES.charAt(Math.floor(Math.random()*CARACTERES.length)));
+        contraseña += (CARACTERES.charAt(Math.floor(Math.random() * CARACTERES.length)));
     }
     ejercicio16.innerHTML += "Contraseña generada de " + numeroBytes + "Bytes." + "<br>" + contraseña;
 }
@@ -632,7 +633,7 @@ function numerosEntreDosEnteros() {
     let mayor = 0;
     if (menor == Number(inputEjercicio17N1.value)) {
         mayor = Number(inputEjercicio17N2.value);
-    }else{
+    } else {
         mayor = Number(inputEjercicio17N1.value);
 
     }
@@ -641,7 +642,7 @@ function numerosEntreDosEnteros() {
         ejercicio17.innerHTML = "Los dos números son iguales";
         return;
     }
-    if (mayor == menor+1) {
+    if (mayor == menor + 1) {
         ejercicio17.innerHTML = "No hay números enteros entre estos dos";
         return;
     }
@@ -649,20 +650,20 @@ function numerosEntreDosEnteros() {
     //Bucle que va comparando menor con mayor simplemente
     //Le sumo un número a menor para que no me inicie la comparación desde el mismo número entonces entre 
     // 1 y 3 no me muestra 1 y 2 solo me muestra 2
-    for(menor++;menor<mayor;menor++){
+    for (menor++; menor < mayor; menor++) {
         ejercicio17.innerHTML += menor + " ";
     }
 
 }
 
-function calcularMenor(){
-    
+function calcularMenor() {
+
     let menor = Math.max;
     if (inputEjercicio17N1.value > inputEjercicio17N2.value) {
         menor = Number(inputEjercicio17N2.value);
-    }else if (inputEjercicio17N1.value < inputEjercicio17N2.value) {
+    } else if (inputEjercicio17N1.value < inputEjercicio17N2.value) {
         menor = Number(inputEjercicio17N1.value);
-    }else{
+    } else {
         menor = Number(inputEjercicio17N1.value);
     }
     return menor;
@@ -681,22 +682,22 @@ let menuEjercicio18 = document.getElementById("menuEjercicio18");
 let botonMenu = document.getElementById("botonMenu");
 let ejercicio18 = document.getElementById("ejercicio18");
 
-function calcularMultiplo(){
+function calcularMultiplo() {
     let numero = Number(menuEjercicio18.value);
-    
+
     switch (numero) {
         case 0:
             ejercicio18.innerHTML = "Ha salido del programa"
             break;
         case 1:
-            ejercicio18.innerHTML = numero%2==0?"Es múltiplo de dos":"No es múltiplo de dos";
+            ejercicio18.innerHTML = numero % 2 == 0 ? "Es múltiplo de dos" : "No es múltiplo de dos";
             break;
         case 2:
-            ejercicio18.innerHTML = numero%3==0?"Es múltiplo de tres":"No es múltiplo de tres";
+            ejercicio18.innerHTML = numero % 3 == 0 ? "Es múltiplo de tres" : "No es múltiplo de tres";
             break;
         case 3:
-            ejercicio18.innerHTML = numero%5==0?"Es múltiplo de cinco":"No es múltiplo de cinco";
-            break;    
+            ejercicio18.innerHTML = numero % 5 == 0 ? "Es múltiplo de cinco" : "No es múltiplo de cinco";
+            break;
         default:
             break;
     }
@@ -705,20 +706,151 @@ function calcularMultiplo(){
 
 botonMenu.addEventListener("click", calcularMultiplo);
 
+
+/**
+ * Ejercicio 19
+ */
+
 /**
  * Ejercicio 19
  */
 let nombreTrabajador = document.getElementById("nombreTrabajador");
 let apellidoTrabajador = document.getElementById("apellidoTrabajador");
-let horasTrabajadas = document.getElementById("horasTrabajadas");
+let horasTrabajadasPrimeras = document.getElementById("horasTrabajadas");
 let botonAgregarTrabajador = document.getElementById("botonAgregarTrabajador");
-let botonFinalizarSalarios = document.getElementById("botonAgregarTrabajador");
-//Al ser un radio con varias opciones de nombre se tiene que poner este
-let turno = document.getElementsByClassName("turno");
+let botonFinalizarSalarios = document.getElementById("botonFinalizarSalarios");
 
-if (condition) {
-    
+let turnoPrimero = document.getElementsByName("turno");
+let totalEjercicio19 = document.getElementById("totalEjercicio19");
+
+let misTrabajadores = [];
+
+/**
+ * Guarda los trabajadores en un array y calcula su sueldo.
+ */
+function guardarTrabajador() {
+
+    let nombre = nombreTrabajador.value;
+    let apellido = apellidoTrabajador.value;
+    let horasTrabajadas = Number(horasTrabajadasPrimeras.value);
+
+    // Buscamos el turno seleccionado
+    let turno = null;
+
+    /**
+     * Al ser unos cuantos de radios estos tienen el funcionamiento como si fuera
+     * un array entonces tengo que recorrerlo y ver cual esta seleccionado 
+     */
+    for (let i = 0; i < turnoPrimero.length; i++) {
+        if (turnoPrimero[i].checked) {
+            turno = Number(turnoPrimero[i].value);
+        }
+    }
+
+    // Comprobamos que los campos no estén vacíos
+    if (nombre == "" || apellido == "" ||
+        horasTrabajadasPrimeras.value == "" || turno == null) {
+
+        totalEjercicio19.innerHTML = "No pueden estar los campos vacíos";
+        return;
+    }
+
+    let sueldoBruto = 0;
+    let sueldoNeto = 0;
+
+    switch (turno) {
+        case 0:
+            sueldoBruto = horasTrabajadas * 25;
+            break;
+
+        case 1:
+            sueldoBruto = horasTrabajadas * 30;
+            break;
+
+        case 2:
+            sueldoBruto = horasTrabajadas * 35;
+            break;
+    }
+
+    if (sueldoBruto < 600) {
+        sueldoNeto = sueldoBruto * 0.92;
+    } else if (sueldoBruto < 1000) {
+        sueldoNeto = sueldoBruto * 0.90;
+    } else {
+        sueldoNeto = sueldoBruto * 0.88;
+    }
+
+    // Creamos un objeto con los datos del trabajador
+    let persona = {
+        nombrePersona: nombre,
+        apellidoPersona: apellido,
+        horasPersona: horasTrabajadas,
+        turnoPersona: turno,
+        sueldoBrutoPersona: sueldoBruto,
+        sueldoNetoPersona: sueldoNeto
+    };
+
+    // Guardamos el trabajador en el array
+    misTrabajadores.push(persona);
+
+    totalEjercicio19.innerHTML = "Trabajador guardado correctamente";
 }
 
+/**
+ * Muestra los trabajadores guardados.
+ */
+function mostrarResultado() {
 
+    if (misTrabajadores.length == 0) {
+        totalEjercicio19.innerHTML = "No has guardado ningún trabajador";
+        return;
+    }
 
+    totalEjercicio19.innerHTML = "";
+
+    for (const elem of misTrabajadores) {
+
+        totalEjercicio19.innerHTML +=
+            "<br>Nombre: " + elem.nombrePersona +
+            "<br>Apellido: " + elem.apellidoPersona +
+            "<br>Horas: " + elem.horasPersona +
+            "<br>Sueldo bruto: " + elem.sueldoBrutoPersona + "€" +
+            "<br>Sueldo neto: " + elem.sueldoNetoPersona + "€" +
+            "<br>-------------------------<br>";
+    }
+}
+
+botonAgregarTrabajador.addEventListener("click", guardarTrabajador);
+botonFinalizarSalarios.addEventListener("click", mostrarResultado);
+
+/**
+ * Ejercicio 20
+ * genera un numero aleatorio y yo tengo que adivinarlo
+ */
+let inputEjercicio20 = document.getElementById("inputEjercicio20");
+let ejercicio20 = document.getElementById("ejercicio20");
+let botonAdivinar = document.getElementById("botonAdivinar");
+let botonReiniciarJuego = document.getElementById("botonReiniciarJuego");
+
+let numero = null;
+function generaNumeroAleatorio() {
+    //Genero número del 1 al 100 redondeandolo a integer
+    numero = Math.floor(Math.random()* 100);
+    console.log(numero)
+
+}
+
+function probarNumero() {
+    ejercicio20.innerHTML = "";
+    let numeroResultado = Number(inputEjercicio20.value);
+    if (numeroResultado == numero) {
+        ejercicio20.innerHTML += "Has acertado el número";
+    } else if (numeroResultado < numero) {
+        ejercicio20.innerHTML += "El número es más grande";
+    } else {
+        ejercicio20.innerHTML += "El número es más pequeño";
+
+    }
+}
+botonReiniciarJuego.addEventListener("click", generaNumeroAleatorio);
+botonAdivinar.addEventListener("click", probarNumero);
