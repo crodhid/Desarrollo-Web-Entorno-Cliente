@@ -704,3 +704,21 @@ function calcularMultiplo(){
 }
 
 botonMenu.addEventListener("click", calcularMultiplo);
+
+/**
+ * Ejercicio 19
+ */
+let nombreTrabajador = document.getElementById("nombreTrabajador");
+let apellidoTrabajador = document.getElementById("apellidoTrabajador");
+let horasTrabajadas = document.getElementById("horasTrabajadas");
+let botonAgregarTrabajador = document.getElementById("botonAgregarTrabajador");
+let botonFinalizarSalarios = document.getElementById("botonAgregarTrabajador");
+//Al ser un radio con varias opciones de nombre se tiene que poner este
+let turno = document.getElementsByClassName("turno");
+
+if (condition) {
+    
+}
+
+
+
