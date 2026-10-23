@@ -1,0 +1,296 @@
+:root {
+    --fondo: #f6f7f9;
+    --superficie: #ffffff;
+    --texto: #1d2330;
+    --texto-suave: #5a6376;
+    --borde: #d5d9e2;
+    --acento: #2459d6;
+    --acento-hover: #1b46ab;
+    --salida-fondo: #eef1f7;
+    --aviso: #b3261e;
+    --resaltado: #ffe36e;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fondo: #14171f;
+        --superficie: #1d212c;
+        --texto: #e8ebf2;
+        --texto-suave: #a0a8ba;
+        --borde: #343a4a;
+        --acento: #6b9bff;
+        --acento-hover: #8fb2ff;
+        --salida-fondo: #252a38;
+        --aviso: #ff8a80;
+        --resaltado: #7a6a12;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    color: var(--texto);
+    background: var(--fondo);
+}
+
+.cabecera {
+    padding: 1.5rem 1rem 1rem;
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borde);
+}
+
+.cabecera h1 {
+    margin: 0 0 0.75rem;
+    font-size: 1.6rem;
+}
+
+.indice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.indice-grupo {
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.indice-grupo:first-child {
+    margin-left: 0;
+}
+
+.indice a {
+    min-width: 2rem;
+    padding: 0.15rem 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--acento);
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+}
+
+.indice a:hover {
+    background: var(--salida-fondo);
+}
+
+main {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.bloque {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.2rem;
+    color: var(--texto-suave);
+}
+
+.ejercicio {
+    margin-bottom: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+}
+
+.ejercicio h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+}
+
+.ejercicio h4 {
+    margin: 1rem 0 0.25rem;
+    font-size: 0.95rem;
+}
+
+.ejercicio p {
+    margin: 0.4rem 0;
+}
+
+.ejercicio:target {
+    border-color: var(--acento);
+    box-shadow: 0 0 0 2px var(--acento);
+}
+
+.campos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+}
+
+.ancho-completo {
+    width: 100%;
+}
+
+input,
+textarea {
+    padding: 0.4rem 0.5rem;
+    font: inherit;
+    color: var(--texto);
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 0.9rem;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+}
+
+button {
+    padding: 0.45rem 0.9rem;
+    font: inherit;
+    color: #ffffff;
+    background: var(--acento);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--acento-hover);
+}
+
+@media (prefers-color-scheme: dark) {
+    button {
+        color: #0d1117;
+    }
+}
+
+.botonera {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.salida {
+    min-height: 2.5rem;
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--salida-fondo);
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.texto-libre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+pre.salida {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 0.9rem;
+}
+
+.aviso {
+    min-height: 1.4rem;
+    color: var(--aviso);
+    font-size: 0.9rem;
+}
+
+.datos {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.3rem 1rem;
+    margin: 0.5rem 0 0;
+}
+
+.datos dt {
+    color: var(--texto-suave);
+}
+
+.datos dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+.lista-eventos {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.lista-eventos li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.lista-eventos li:last-child {
+    border-bottom: none;
+}
+
+/* Coincidencias del ejercicio 14: genera <mark class="coincidencia"> desde JS */
+mark.coincidencia {
+    padding: 0 0.1rem;
+    color: inherit;
+    background: var(--resaltado);
+    border-radius: 2px;
+}
+
+#visor {
+    width: 100%;
+    height: 22rem;
+    margin-top: 0.5rem;
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+}
+
+code {
+    padding: 0.05rem 0.3rem;
+    font-size: 0.9em;
+    background: var(--salida-fondo);
+    border-radius: 3px;
+}
+
+.pie {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 1rem 1rem 2rem;
+}
+
+.pie a {
+    color: var(--acento);
+}
+
+@media (max-width: 600px) {
+    .campos {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ejercicio {
+        padding: 0.85rem;
+    }
+}

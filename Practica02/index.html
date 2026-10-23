@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicios DWEC</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+
+<header class="cabecera">
+    <h1 id="h11">Ejercicios de JavaScript</h1>
+    <nav class="indice" aria-label="Índice de ejercicios">
+        <span class="indice-grupo">Objetos nativos:</span>
+        <a href="#ej1">1</a><a href="#ej2">2</a><a href="#ej3">3</a><a href="#ej4">4</a>
+        <a href="#ej5">5</a><a href="#ej6">6</a><a href="#ej7">7</a><a href="#ej8">8</a>
+        <span class="indice-grupo">Navigator, Screen, Window, History, Location:</span>
+        <a href="#ej9">9</a><a href="#ej10">10</a><a href="#ej11">11</a><a href="#ej12">12</a><a href="#ej13">13</a>
+        <span class="indice-grupo">Expresiones regulares:</span>
+        <a href="#ej14">14</a><a href="#ej15">15</a><a href="#ej16">16</a><a href="#ej17">17</a><a href="#ej18">18</a>
+    </nav>
+</header>
+
+<main>
+
+    <h2 class="bloque">Ejercicios sobre objetos nativos</h2>
+
+    <!-- 1. Jerarquía Persona / Estudiante / Profesor -->
+    <section class="ejercicio" id="ej1">
+        <h3>1. Jerarquía de objetos: Persona, Estudiante y Profesor</h3>
+        <p>Ejecuta los casos de prueba de la jerarquía.</p>
+        <button id="btnEj1">Probar jerarquía</button>
+        <div class="salida" id="salida1"></div>
+    </section>
+
+    <!-- 2. Pendiente -->
+    <section class="ejercicio" id="ej2">
+        <h3>2. Longitud, ángulo y % de una pendiente</h3>
+        <div class="campos">
+            <label>Longitud (m)
+                <input type="number" id="longitud" step="any" value="100">
+            </label>
+            <label>Altura (m)
+                <input type="number" id="altura" step="any" value="20">
+            </label>
+            <label>x1 <input type="number" id="x1" step="any" value="0"></label>
+            <label>y1 <input type="number" id="y1" step="any" value="0"></label>
+            <label>x2 <input type="number" id="x2" step="any" value="100"></label>
+            <label>y2 <input type="number" id="y2" step="any" value="20"></label>
+        </div>
+        <button id="btnej2Pendiente">Calcular pendiente</button>
+        <button id="btnej2Inclinacion">Calcular inclinación</button>
+        <button id="btnej2Porcentaje">Calcular % inclinación</button>
+        <div class="salida" id="salida2"></div>
+    </section>
+
+    <!-- 3. Pi con 4 decimales -->
+    <section class="ejercicio" id="ej3">
+        <h3>3. Constante Pi con 4 decimales</h3>
+        <p>Muestra el valor con dos métodos distintos.</p>
+        <button id="btnEj3">Mostrar Pi</button>
+        <div class="salida" id="salida3"></div>
+    </section>
+
+    <!-- 4. Días vividos -->
+    <section class="ejercicio" id="ej4">
+        <h3>4. Días que llevas viviendo</h3>
+        <div class="campos">
+            <label>Fecha de nacimiento
+                <input type="date" id="fechaNacimiento4">
+            </label>
+        </div>
+        <button id="btnEj4">Calcular días</button>
+        <div class="salida" id="salida4"></div>
+    </section>
+
+    <!-- 5. Calculadora de edad -->
+    <section class="ejercicio" id="ej5">
+        <h3>5. Calculadora de edad</h3>
+        <div class="campos">
+            <label>Fecha y hora de nacimiento
+                <input type="datetime-local" id="fechaNacimiento5">
+            </label>
+        </div>
+        <button id="btnEj5">Calcular edad exacta</button>
+        <div class="salida" id="salida5"></div>
+    </section>
+
+    <!-- 6. Calendario de eventos -->
+    <section class="ejercicio" id="ej6">
+        <h3>6. Calendario de eventos</h3>
+        <div class="campos">
+            <label>Título
+                <input type="text" id="tituloEvento" placeholder="Examen de DWEC">
+            </label>
+            <label>Fecha y hora
+                <input type="datetime-local" id="fechaEvento">
+            </label>
+        </div>
+        <button id="btnEj6">Agregar evento</button>
+        <p class="aviso" id="aviso6" role="alert"></p>
+        <ul class="lista-eventos" id="listaEventos"></ul>
+    </section>
+
+    <!-- 7. Caracteres "-" -->
+    <section class="ejercicio" id="ej7">
+        <h3>7. Contar el carácter "-" en una cadena</h3>
+        <p>Se te pedirá el texto con un cuadro de diálogo.</p>
+        <button id="btnEj7">Introducir cadena</button>
+        <div class="salida" id="salida7"></div>
+    </section>
+
+    <!-- 8. Array dinámico -->
+    <section class="ejercicio" id="ej8">
+        <h3>8. Manipulación de un array</h3>
+        <div class="campos">
+            <label>Valor
+                <input type="text" id="valorArray">
+            </label>
+            <label>Posición
+                <input type="number" id="posicionArray" min="0" step="1" value="0">
+            </label>
+        </div>
+        <div class="botonera">
+            <button id="btnAlFinal">Insertar al final</button>
+            <button id="btnAlPrincipio">Insertar al principio</button>
+            <button id="btnBorrarPrimero">Borrar primero</button>
+            <button id="btnBorrarUltimo">Borrar último</button>
+            <button id="btnInsertarPosicion">Insertar en posición</button>
+            <button id="btnEliminarPosicion">Eliminar en posición</button>
+            <button id="btnOrdenarAsc">Ordenar ascendente</button>
+            <button id="btnOrdenarDesc">Ordenar descendente</button>
+        </div>
+        <p class="aviso" id="aviso8" role="alert"></p>
+        <div class="salida" id="salida8">Array: []</div>
+    </section>
+
+    <h2 class="bloque">Ejercicios sobre Navigator, Screen, Window, History, Document y Location</h2>
+
+    <!-- 9. Resolución en tiempo real -->
+    <section class="ejercicio" id="ej9">
+        <h3>9. Resolución de pantalla en tiempo real</h3>
+        <dl class="datos">
+            <dt>Ancho</dt><dd id="anchoPantalla">–</dd>
+            <dt>Alto</dt><dd id="altoPantalla">–</dd>
+            <dt>Tipo de dispositivo</dt><dd id="tipoDispositivo">–</dd>
+        </dl>
+    </section>
+
+    <!-- 10. Ventana posicionada -->
+    <section class="ejercicio" id="ej10">
+        <h3>10. Abrir una ventana nueva según la resolución</h3>
+        <button id="btnEj10">Abrir ventana</button>
+        <p class="aviso" id="aviso10" role="alert"></p>
+    </section>
+
+    <!-- 11. Redimensionar -->
+    <section class="ejercicio" id="ej11">
+        <h3>11. Redimensionar la ventana a 600 x 500</h3>
+        <p>Los navegadores solo permiten redimensionar ventanas abiertas con <code>window.open</code>.</p>
+        <div class="botonera">
+            <button id="btnAbrirEj11">Abrir ventana de prueba</button>
+            <button id="btnEj11">Redimensionar a 600 x 500</button>
+        </div>
+        <p class="aviso" id="aviso11" role="alert"></p>
+    </section>
+
+    <!-- 12. Historial con iframe -->
+    <section class="ejercicio" id="ej12">
+        <h3>12. Navegación atrás y adelante con iframe</h3>
+        <div class="campos">
+            <label>Dirección de la página
+                <input type="url" id="urlIframe" placeholder="https://es.wikipedia.org">
+            </label>
+            <button id="btnIr">Ir</button>
+        </div>
+        <div class="botonera">
+            <button id="btnAtras">Atrás</button>
+            <button id="btnAdelante">Adelante</button>
+        </div>
+        <p>URL actual: <output id="urlActual">–</output></p>
+        <iframe id="visor" title="Páginas visitadas"></iframe>
+    </section>
+
+    <!-- 13. Comunicación entre ventanas -->
+    <section class="ejercicio" id="ej13">
+        <h3>13. Intercambio de información entre ventanas</h3>
+        <div class="campos">
+            <label>Mensaje para la ventana secundaria
+                <input type="text" id="mensajePrincipal">
+            </label>
+        </div>
+        <div class="botonera">
+            <button id="btnAbrirSecundaria">Abrir ventana secundaria</button>
+            <button id="btnEnviarSecundaria">Enviar a la secundaria</button>
+        </div>
+        <p>Recibido desde la secundaria: <output id="recibidoPrincipal">–</output></p>
+        <p class="aviso" id="aviso13" role="alert"></p>
+    </section>
+
+    <h2 class="bloque">Ejercicios sobre expresiones regulares</h2>
+
+    <!-- 14. Buscar y reemplazar -->
+    <section class="ejercicio" id="ej14">
+        <h3>14. Buscar y reemplazar con expresiones regulares</h3>
+        <label class="ancho-completo">Texto de prueba
+            <textarea id="textoBase" rows="5">Nací el 05/04/1982 en Donostia. Mi correo es ejemplo@correo.com y mi otro correo es otro@dominio.es.</textarea>
+        </label>
+        <div class="campos">
+            <label>Patrón
+                <input type="text" id="patron" placeholder="\d+">
+            </label>
+            <label>Banderas
+                <input type="text" id="banderas" value="g" size="4" maxlength="6">
+            </label>
+            <label>Reemplazar por
+                <input type="text" id="reemplazo">
+            </label>
+        </div>
+        <div class="botonera">
+            <button id="btnBuscar">Buscar y resaltar</button>
+            <button id="btnReemplazar">Reemplazar</button>
+        </div>
+        <p class="aviso" id="aviso14" role="alert"></p>
+        <p>Coincidencias: <output id="numCoincidencias">0</output></p>
+        <h4>Texto con coincidencias resaltadas</h4>
+        <div class="salida texto-libre" id="textoResaltado"></div>
+        <h4>Texto tras el reemplazo</h4>
+        <div class="salida texto-libre" id="textoReemplazado"></div>
+    </section>
+
+    <!-- 15. Fecha XX/XX/XXXX -->
+    <section class="ejercicio" id="ej15">
+        <h3>15. Validar fecha con formato XX/XX/XXXX</h3>
+        <div class="campos">
+            <label>Texto
+                <input type="text" id="textoFecha" value="Nací el 05/04/1982 en Donostia." size="40">
+            </label>
+        </div>
+        <button id="btnEj15">Validar</button>
+        <div class="salida" id="salida15"></div>
+    </section>
+
+    <!-- 16. Email -->
+    <section class="ejercicio" id="ej16">
+        <h3>16. Validar dirección de email</h3>
+        <div class="campos">
+            <label>Email
+                <input type="text" id="textoEmail" placeholder="nombre.apellido@dominio.es" size="35">
+            </label>
+        </div>
+        <button id="btnEj16">Validar</button>
+        <div class="salida" id="salida16"></div>
+    </section>
+
+    <!-- 17. Nombre y apellido invertidos -->
+    <section class="ejercicio" id="ej17">
+        <h3>17. Invertir nombre y apellido</h3>
+        <div class="campos">
+            <label>Nombre y apellido
+                <input type="text" id="nombreCompleto" value="John Smith">
+            </label>
+        </div>
+        <button id="btnEj17">Invertir</button>
+        <div class="salida" id="salida17"></div>
+    </section>
+
+    <!-- 18. Eliminar <script> -->
+    <section class="ejercicio" id="ej18">
+        <h3>18. Eliminar etiquetas &lt;script&gt; de un HTML</h3>
+        <label class="ancho-completo">Código HTML
+            <textarea id="codigoHtml" rows="6">&lt;h1&gt;Título&lt;/h1&gt;
+&lt;script&gt;alert("peligro");&lt;/script&gt;
+&lt;p&gt;Texto seguro&lt;/p&gt;</textarea>
+        </label>
+        <button id="btnEj18">Limpiar HTML</button>
+        <h4>Resultado</h4>
+        <pre class="salida" id="salida18"></pre>
+    </section>
+
+</main>
+
+<footer class="pie">
+    <a href="usuarios.html" id="aUsuarios">Ir a usuarios.html</a>
+</footer>
+
+</body>
+</html>
