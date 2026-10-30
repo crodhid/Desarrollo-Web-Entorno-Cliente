@@ -80,7 +80,7 @@
         <h3>5. Calculadora de edad</h3>
         <div class="campos">
             <label>Fecha y hora de nacimiento
-                <input type="datetime-local" id="fechaNacimiento5">
+                <input type="date" id="fechaNacimiento5">
             </label>
         </div>
         <button id="btnEj5">Calcular edad exacta</button>
@@ -100,14 +100,14 @@
         </div>
         <button id="btnEj6">Agregar evento</button>
         <p class="aviso" id="aviso6" role="alert"></p>
-        <ul class="lista-eventos" id="listaEventos"></ul>
+        <p class="lista-eventos" id="listaEventos"></p>
     </section>
 
     <!-- 7. Caracteres "-" -->
     <section class="ejercicio" id="ej7">
         <h3>7. Contar el carácter "-" en una cadena</h3>
-        <p>Se te pedirá el texto con un cuadro de diálogo.</p>
-        <button id="btnEj7">Introducir cadena</button>
+        <textarea id="areaTexto"></textarea>
+        <button id="btnEj7">Comprobar guiones</button>
         <div class="salida" id="salida7"></div>
     </section>
 
@@ -131,9 +131,10 @@
             <button id="btnEliminarPosicion">Eliminar en posición</button>
             <button id="btnOrdenarAsc">Ordenar ascendente</button>
             <button id="btnOrdenarDesc">Ordenar descendente</button>
+            <button id="mostrarArray">Mostrar Array</button>
         </div>
         <p class="aviso" id="aviso8" role="alert"></p>
-        <div class="salida" id="salida8">Array: []</div>
+        <div class="salida" id="salida8"></div>
     </section>
 
     <h2 class="bloque">Ejercicios sobre Navigator, Screen, Window, History, Document y Location</h2>
