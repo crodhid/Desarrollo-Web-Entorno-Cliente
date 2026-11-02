@@ -404,3 +404,106 @@ function redimensionarVentana(){
 btnAbrirEj11.onclick = abreVentana;
 btnEj11.onclick = redimensionarVentana;
 
+
+/**
+ * Ejercicio 12
+ */
+// Referencias a los elementos del ejercicio 12
+let urlIframe = document.getElementById("urlIframe");
+let btnIr = document.getElementById("btnIr");
+let btnAtras = document.getElementById("btnAtras");
+let btnAdelante = document.getElementById("btnAdelante");
+let urlActual = document.getElementById("urlActual");
+let visor = document.getElementById("visor");
+
+// Última dirección que hemos cargado nosotros (por si luego no se puede leer)
+let ultimaURL = "–";
+
+// Carga en el iframe la dirección escrita en el campo
+function ir() {
+    let url = urlIframe.value;
+    if (url === "") {
+        return;                 // si está vacío, no hacemos nada
+    }
+    ultimaURL = url;
+    visor.src = url;            // el iframe carga la página
+}
+
+// Vuelve a la página anterior del historial
+function atras() {
+    window.history.back();
+}
+
+// Avanza a la página siguiente del historial
+function adelante() {
+    window.history.forward();
+}
+
+// Muestra la URL que tiene el iframe en este momento
+function mostrarURL() {
+    try {
+        // Solo funciona si la página es de tu mismo dominio
+        urlActual.value = visor.contentWindow.location.href;
+    } catch (error) {
+        // Si es de otro dominio, el navegador no deja leerla:
+        // mostramos la última que cargamos nosotros
+        urlActual.value = ultimaURL;
+    }
+}
+
+// Asignamos cada función a su evento
+btnIr.onclick = ir;
+btnAtras.onclick = atras;
+btnAdelante.onclick = adelante;
+visor.onload = mostrarURL;      // se ejecuta cada vez que el iframe termina de cargar
+
+
+/**
+ * Ejercicio 13
+ */
+
+// Referencias a los elementos del ejercicio 13
+let mensajePrincipal = document.getElementById("mensajePrincipal");
+let btnAbrirSecundaria = document.getElementById("btnAbrirSecundaria");
+let btnEnviarSecundaria = document.getElementById("btnEnviarSecundaria");
+let recibidoPrincipal = document.getElementById("recibidoPrincipal");
+let aviso13 = document.getElementById("aviso13");
+
+// Aquí guardamos la referencia a la ventana secundaria
+let secundaria = null;
+
+// Abre la ventana secundaria (o la trae al frente si ya está abierta)
+function abrirSecundaria() {
+    aviso13.textContent = "";
+
+    if (secundaria !== null && !secundaria.closed) {
+        secundaria.focus();
+        return;
+    }
+
+    secundaria = window.open("ventanaNueva.html", "secundaria", "width=400,height=300");
+
+    // Si el navegador bloquea las ventanas emergentes, open() devuelve null
+    if (secundaria === null) {
+        aviso13.textContent = "El navegador ha bloqueado la ventana emergente.";
+    }
+}
+
+// Envía el contenido del campo a la secundaria
+function enviarSecundaria() {
+    if (secundaria === null || secundaria.closed) {
+        aviso13.textContent = "La ventana secundaria no está abierta.";
+        return;
+    }
+    aviso13.textContent = "";
+    // Llamamos a una función que está definida EN la secundaria
+    secundaria.recibirMensaje(mensajePrincipal.value);
+}
+
+// La llamará la secundaria para entregarnos su mensaje
+function recibirDesdeSecundaria(texto) {
+    recibidoPrincipal.value = texto;
+}
+
+btnAbrirSecundaria.onclick = abrirSecundaria;
+btnEnviarSecundaria.onclick = enviarSecundaria;
