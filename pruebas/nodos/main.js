@@ -19,38 +19,91 @@ for (let op of opRadio)
     info.innerHTML += op.value + ", ";
 
 document.getElementById("bChangeClassStyle").onclick = function () {
-    
-    for (let op of oplista1)
-        if (op.className == "pares")
-            op.className = "impares";
-        else
-            op.className = "pares";
-
-    for (let op of oplista2)
-        if (op.className == "pares")
-            op.className = "impares";
-        else
-            op.className = "pares";
+    let lista = Array.from(listaPaises.getElementsByTagName("li"));
+    for (const elem of lista) {
+        if (elem.className == "pares") {
+            elem.className = "impares";
+        }else{
+            elem.className = "pares";
+        }
+    }
 }
 
 document.getElementById("bNuevoPais").onclick = function () {
-listaPaises = document.getElementsByTagName("li")
-let nuevoPais = document.getElementById("nuevoPais").value;
-if (nuevoPais == "") 
-    info.innerHTML ="Debe escribir un País";
-else { // Insertamos nuevo nodo en la lista
-    let nuevoNodoPais = document.createElement("li");
-    if (listaPaises.length %2 == 0) {
-        nuevoNodoPais.className = "impares"
-    }else{
-        nuevoNodoPais.className = "pares"
-        
+    const items = listaPaises.getElementsByTagName("li");
+    let nuevoPais = document.getElementById("nuevoPais").value;
+    if (nuevoPais == "")
+        info.innerHTML = "Debe escribir un País";
+    else {
+        let nuevoNodoPais = document.createElement("li");
+        nuevoNodoPais.className = (items.length % 2 == 0) ? "impares" : "pares";
+        nuevoNodoPais.appendChild(document.createTextNode(nuevoPais));
+        listaPaises.appendChild(nuevoNodoPais);
     }
-    let nuevoNodoPaisText = document.createTextNode(nuevoPais);
-    nuevoNodoPais.appendChild(nuevoNodoPaisText);
-
-    document.getElementById("paises").appendChild(nuevoNodoPais);
 }
 
 
+document.getElementById("añadirNodo").onclick = function () {
+    let nuevoNodo = crearNodo("p","Registrarse", "a1", "background-color:red; color:green",[] );
+    if (nuevoNodo) {
+        document.body.appendChild(nuevoNodo);
+    }else{
+
+    }
+}
+
+/******************************************************** */
+//FUNCION PARA CREAR NODOS
+
+/**
+ * 
+ * @param tipo
+ * @param texto 
+ * @param id 
+ * @param styles, estilos a implementar en mi elemento
+ * @param props, cosa a mejorar de array
+ */
+function crearNodo(tipo, texto , id, styles, props) {
+    let elemento = null;
+
+    //Comprobamos que el tipo es string y que se ha pasado
+    if ((!tipo) || (typeof tipo != "string")) {
+        throw new Error("No se ha pasado tipo");
+    }
+
+    //Si el tipo es distinto de cadena vacia creamos el elemento de ese tipo
+    if (tipo != "") {
+        elemento = document.createElement(tipo);
+    }else{
+        throw new Error("El tipo no puede ser cadena vacia");
+        
+    }
+    
+    //Si hay texto lo añadimos al elemento que acabamos de crear arriba
+    if (texto != "") {
+        let elementoText = document.createTextNode(texto);
+        elemento.appendChild(elementoText);
+    }
+
+    //le añadimos al elemento la id 
+    if (id != "") {
+        elemento.id = id;
+    }
+
+    //Comprobmaos que styles existe y que es un string
+    if ((styles) && (typeof styles === "string") && (styles != "")) {
+        elemento.style = styles;
+    }
+    return elemento;
+}
+
+document.getElementById("borrarTercero").onclick = function () {
+    let miArray = Array.from(listaPaises.getElementsByTagName("li"));
+    let lista = document.getElementById("paises");
+
+    //Compruebo que mi lista tenga mas de 3 elementos y le borro el segundo
+    if (miArray.length >3) {
+        // miArray[2].parentNode.removeChild(miArray[2]);
+        miArray[2].remove();
+    }
 }
