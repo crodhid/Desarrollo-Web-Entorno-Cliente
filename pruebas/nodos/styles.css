@@ -1,9 +1,98 @@
-.pares{
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Menú de navegación */
+#nav1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+#nav1 a {
+    color: #1a7bb0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#nav1 a:hover {
+    text-decoration: underline;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+/* Contenedor de las dos secciones */
+#contenedor {
+    display: flex;
+    gap: 2%;
+    align-items: stretch;
+    margin-top: 20px;
+}
+
+.section1 {
+    width: 49%;
+    padding: 16px;
+    background-color: white;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+/* Lista de países */
+#paises {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#paises li {
+    padding: 8px 12px;
+}
+
+.pares {
     background-color: aquamarine;
     color: black;
 }
 
-.impares{
+.impares {
     background-color: black;
     color: aquamarine;
+}
+
+/* Sección de la imagen */
+#imagenes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+#imagenes img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 6px;
+}
+
+#imagenes button {
+    padding: 8px 16px;
+    background-color: #1a7bb0;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#imagenes button:hover {
+    background-color: #145f88;
 }

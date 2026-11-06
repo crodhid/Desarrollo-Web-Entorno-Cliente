@@ -7,50 +7,50 @@ const oplista2 = Array.from(document.getElementsByClassName("impares"));
 
 const opciones = listaPaises.getElementsByTagName("li");
 
-if(opciones.length > 0) {
-    console.log("Número de opciones de la lista: " + opciones.length);
-    info.innerHTML = opciones[2].innerHTML;
-}
-else 
-    throw Error ("No existen opciones e lista")
+// if (opciones.length > 0) {
+//     console.log("Número de opciones de la lista: " + opciones.length);
+//     info.innerHTML = opciones[2].innerHTML;
+// }
+// else
+//     throw Error("No existen opciones e lista")
 
-info.innerHTML = "Opciones del radio edad: "; 
-for (let op of opRadio)
-    info.innerHTML += op.value + ", ";
+// info.innerHTML = "Opciones del radio edad: ";
+// for (let op of opRadio)
+//     info.innerHTML += op.value + ", ";
 
-document.getElementById("bChangeClassStyle").onclick = function () {
-    let lista = Array.from(listaPaises.getElementsByTagName("li"));
-    for (const elem of lista) {
-        if (elem.className == "pares") {
-            elem.className = "impares";
-        }else{
-            elem.className = "pares";
-        }
-    }
-}
+// document.getElementById("bChangeClassStyle").onclick = function () {
+//     let lista = Array.from(listaPaises.getElementsByTagName("li"));
+//     for (const elem of lista) {
+//         if (elem.className == "pares") {
+//             elem.className = "impares";
+//         } else {
+//             elem.className = "pares";
+//         }
+//     }
+// }
 
-document.getElementById("bNuevoPais").onclick = function () {
-    const items = listaPaises.getElementsByTagName("li");
-    let nuevoPais = document.getElementById("nuevoPais").value;
-    if (nuevoPais == "")
-        info.innerHTML = "Debe escribir un País";
-    else {
-        let nuevoNodoPais = document.createElement("li");
-        nuevoNodoPais.className = (items.length % 2 == 0) ? "impares" : "pares";
-        nuevoNodoPais.appendChild(document.createTextNode(nuevoPais));
-        listaPaises.appendChild(nuevoNodoPais);
-    }
-}
+// document.getElementById("bNuevoPais").onclick = function () {
+//     const items = listaPaises.getElementsByTagName("li");
+//     let nuevoPais = document.getElementById("nuevoPais").value;
+//     if (nuevoPais == "")
+//         info.innerHTML = "Debe escribir un País";
+//     else {
+//         let nuevoNodoPais = document.createElement("li");
+//         nuevoNodoPais.className = (items.length % 2 == 0) ? "impares" : "pares";
+//         nuevoNodoPais.appendChild(document.createTextNode(nuevoPais));
+//         listaPaises.appendChild(nuevoNodoPais);
+//     }
+// }
 
 
-document.getElementById("añadirNodo").onclick = function () {
-    let nuevoNodo = crearNodo("p","Registrarse", "a1", "background-color:red; color:green",[] );
-    if (nuevoNodo) {
-        document.body.appendChild(nuevoNodo);
-    }else{
+// document.getElementById("añadirNodo").onclick = function () {
+//     let nuevoNodo = crearNodo("p", "Registrarse", "a1", "background-color:red; color:green", []);
+//     if (nuevoNodo) {
+//         document.body.appendChild(nuevoNodo);
+//     } else {
 
-    }
-}
+//     }
+// }
 
 /******************************************************** */
 //FUNCION PARA CREAR NODOS
@@ -63,7 +63,7 @@ document.getElementById("añadirNodo").onclick = function () {
  * @param styles, estilos a implementar en mi elemento
  * @param props, cosa a mejorar de array
  */
-function crearNodo(tipo, texto , id, styles, props) {
+function crearNodo(tipo, texto, id, styles, props) {
     let elemento = null;
 
     //Comprobamos que el tipo es string y que se ha pasado
@@ -74,11 +74,11 @@ function crearNodo(tipo, texto , id, styles, props) {
     //Si el tipo es distinto de cadena vacia creamos el elemento de ese tipo
     if (tipo != "") {
         elemento = document.createElement(tipo);
-    }else{
+    } else {
         throw new Error("El tipo no puede ser cadena vacia");
-        
+
     }
-    
+
     //Si hay texto lo añadimos al elemento que acabamos de crear arriba
     if (texto != "") {
         let elementoText = document.createTextNode(texto);
@@ -97,13 +97,46 @@ function crearNodo(tipo, texto , id, styles, props) {
     return elemento;
 }
 
-document.getElementById("borrarTercero").onclick = function () {
-    let miArray = Array.from(listaPaises.getElementsByTagName("li"));
-    let lista = document.getElementById("paises");
+// document.getElementById("borrarTercero").onclick = function () {
+//     let miArray = Array.from(listaPaises.getElementsByTagName("li"));
+//     let lista = document.getElementById("paises");
 
-    //Compruebo que mi lista tenga mas de 3 elementos y le borro el segundo
-    if (miArray.length >3) {
-        // miArray[2].parentNode.removeChild(miArray[2]);
-        miArray[2].remove();
-    }
+//     //Compruebo que mi lista tenga mas de 3 elementos y le borro el segundo
+//     if (miArray.length > 3) {
+//         //con este al borrar me devuelve el nodo.
+//         miArray[2].parentNode.removeChild(miArray[2]);
+//         //Con el remove lo borramos directamente, pero no me devuelve el item borrado.
+//         // miArray[2].remove();
+//     }
+// }
+
+//funcion para mis section
+//creo el nodo a
+let enlaceImagen = crearNodo("a", "Cambiar Imagen", "", "background-color:#1276af; border-radius:8px; color:white; padding:0.2%; margin: 0.2%;",[]);
+let section1 =  document.getElementsByClassName("section1");
+
+//cargo mi imagen desde aqui
+document.getElementById("img1").setAttribute("src","images.jpg")
+
+
+if (section1.length >= 2) {
+        section1[1].appendChild(enlaceImagen);
+        enlaceImagen.href = "#";
+        enlaceImagen.onclick = function () {
+            document.getElementById("img1").src = "imagen2.jpg"
+        }
+}
+
+let inputRead = document.getElementById("input");
+let bloquear = document.getElementById("bloquear");
+let desbloquear = document.getElementById("desbloquear");
+
+bloquear.onclick = function(){
+    //le añado el atributo read only
+    inputRead.setAttribute("readOnly", "true");
+}
+
+desbloquear.onclick = function(){
+    //le quito el atributo read only
+    inputRead.removeAttribute("readOnly");
 }
