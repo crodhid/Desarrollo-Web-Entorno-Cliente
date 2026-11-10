@@ -140,3 +140,49 @@ desbloquear.onclick = function(){
     //le quito el atributo read only
     inputRead.removeAttribute("readOnly");
 }
+
+//Boton que devuelve los impares
+document.getElementById("bDevuelveImpares").onclick = function () {
+    //esto me devuelve todos los li que hay dentro de la section
+    let lista2 = document.querySelectorAll(".section1 li");
+    let arrayImpares = new Array();
+
+    for (let i = 0; i< lista2.length; i += 2) {
+        //guardamos los impares
+        arrayImpares.push(lista2[i].innerText);
+    }
+    console.dir(arrayImpares);
+}
+
+//cambiamos a modo noche la pagina
+document.getElementById("aModoNoche").onclick = function () {
+    // document.body.style.backgroundColor = "#B0ACAC";
+    // document.body.style.color= "#EDEBEB";
+    // const botones = document.getElementsByTagName("button");
+    // for (const elem of botones) {
+    //     elem.style.backgroundColor = "darkgray";
+    //     elem.style.color = "darkwhite";
+    // }
+
+    // const enlaces = document.getElementsByTagName("a");
+    // for (const elem of enlaces) {
+    //     elem.style.backgroundColor = "darkgray";
+    //     elem.style.color = "red";
+    // }
+
+    //Ahora lo hacemos con las clases implementadas en el css
+    document.body.className = "modoNoche";
+    const botones = document.getElementsByTagName("button");
+    //Con esto sacamos el estilo que tiene el boton
+    let buttonStyle = window.getComputedStyle(botones[0])
+
+    if (buttonStyle.getPropertyValue("background-color") == "darkgray") {
+        //estoy en modo noche cambio a modo dia
+        this.innerText = "Cambiar a modo noche"
+        document.body.className = ""
+    }else{
+        document.body.className = "modoNoche";
+        this.innerText = "Cambiar a modo dia"
+    }
+
+}

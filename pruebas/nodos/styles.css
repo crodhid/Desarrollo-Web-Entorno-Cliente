@@ -96,3 +96,13 @@ hr {
 #imagenes button:hover {
     background-color: #145f88;
 }
+
+.modoNoche {
+    background-color: darkgray;
+    color : white;
+}
+
+.modoNoche a{
+    background-color: darkgray;
+    color : red
+}
