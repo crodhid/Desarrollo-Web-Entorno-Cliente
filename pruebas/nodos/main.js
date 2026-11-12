@@ -186,3 +186,37 @@ document.getElementById("aModoNoche").onclick = function () {
     }
 
 }
+
+/**
+ * Función que reemplaza mi 3 pais por uno nuevo
+ */
+document.getElementById("sustituye").addEventListener("click", () =>{
+    let paisSustituir = crearNodo("li", document.getElementById("nuevoPais").value, "", "");
+    listaPaises.replaceChild(paisSustituir, opciones[2]);
+})
+
+/**
+ * Función para clonar mi lista
+ */
+document.getElementById("sectionClonar").addEventListener("click", ()=>{
+    let section = document.getElementById("sectionClonar");
+    let clon = listaPaises.cloneNode(true);
+    console.log(clon);
+
+    clon.appendChild(crearNodo("li","Noruega","",""))
+
+
+    section.appendChild(clon)
+})
+
+//Elementos
+for(let elem of listaPaises.childNodes){
+    console.log("Elemento: " + elem);
+}
+
+//Nodos
+for(let elem of listaPaises.children){
+    console.dir(elem);
+}
+
+console.log(listaPaises.firstElementChild);
