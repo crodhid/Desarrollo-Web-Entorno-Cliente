@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Club Deportivo · Gestor de socios</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Tu JS va en un archivo externo. defer = se ejecuta cuando el HTML ya está cargado -->
+    <script src="main.js" defer></script>
+</head>
+<body>
+
+    <!-- 3.1 CABECERA -->
+    <header class="cabecera">
+        <h1>Club Deportivo</h1>
+        <div class="reloj">
+            <p id="fecha-hoy" class="fecha"></p>
+            <p id="hora-actual" class="hora"></p>
+        </div>
+    </header>
+
+    <main class="contenedor">
+
+        <!-- 3.2 LISTADO DE SOCIOS -->
+        <section id="seccion-listado" class="panel panel-listado" aria-labelledby="titulo-listado">
+            <div class="panel-cabecera">
+                <h2 id="titulo-listado">Socios</h2>
+                <button type="button" id="btn-pantalla-completa" class="btn btn-secundario">Pantalla completa</button>
+            </div>
+
+            <div class="controles">
+                <div class="campo">
+                    <label for="buscador">Buscar</label>
+                    <input type="search" id="buscador" placeholder="Nombre, apellidos o email" autocomplete="off">
+                </div>
+
+                <div class="campo">
+                    <label for="filtro-actividad">Actividad</label>
+                    <select id="filtro-actividad">
+                        <option value="todas">Todas las actividades</option>
+                        <option value="natación">Natación</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="pádel">Pádel</option>
+                        <option value="musculación">Musculación</option>
+                        <option value="spinning">Spinning</option>
+                        <option value="pilates">Pilates</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="orden">Ordenar por</label>
+                    <select id="orden">
+                        <option value="nombre">Nombre</option>
+                        <option value="apellidos">Apellidos</option>
+                        <option value="jovenes">Más jóvenes primero</option>
+                        <option value="antiguos">Más antiguos primero</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tabla-scroll">
+                <table id="tabla-socios">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col" class="num">Edad</th>
+                            <th scope="col">Actividades</th>
+                            <th scope="col" class="num">Cuota</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tabla">
+                        <!-- Filas generadas por JS. Ejemplo de la estructura de una fila:
+                        <tr>
+                            <td><span class="iniciales">LM</span> SOC-0001</td>
+                            <td>Lucía Martín R.</td>
+                            <td>lu**********@correo.es</td>
+                            <td class="num">31</td>
+                            <td>natación, yoga</td>
+                            <td class="num">35.00 €</td>
+                        </tr>
+                        Fila de "sin resultados":
+                        <tr><td colspan="6" class="vacio">No hay socios que coincidan</td></tr>
+                        -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3.3 FICHA DE SOCIO -->
+        <section class="panel panel-ficha" aria-labelledby="titulo-ficha">
+            <h2 id="titulo-ficha">Ficha de socio</h2>
+
+            <form id="form-ficha" class="formulario" novalidate>
+                <div class="campo">
+                    <label for="ficha-dni">DNI</label>
+                    <div class="campo-fila">
+                        <input type="text" id="ficha-dni" placeholder="12345678Z" maxlength="9" autocomplete="off">
+                        <button type="submit" class="btn">Ver ficha</button>
+                    </div>
+                </div>
+            </form>
+
+            <p id="ficha-error" class="mensaje mensaje-error" role="alert" hidden></p>
+
+            <article id="ficha" class="ficha" hidden>
+                <header class="ficha-cabecera">
+                    <span id="ficha-iniciales" class="iniciales iniciales-grande"></span>
+                    <div>
+                        <h3 id="ficha-nombre"></h3>
+                        <p id="ficha-id" class="ficha-id"></p>
+                    </div>
+                </header>
+
+                <dl class="ficha-datos">
+                    <div><dt>DNI</dt><dd id="ficha-dni-dato"></dd></div>
+                    <div><dt>Email</dt><dd id="ficha-email"></dd></div>
+                    <div><dt>Teléfono</dt><dd id="ficha-telefono"></dd></div>
+                    <div><dt>Nacimiento</dt><dd id="ficha-nacimiento"></dd></div>
+                    <div><dt>Alta</dt><dd id="ficha-alta"></dd></div>
+                    <div><dt>Próximo cumpleaños</dt><dd id="ficha-cumple"></dd></div>
+                    <div><dt>Actividades</dt><dd id="ficha-actividades"></dd></div>
+                    <div><dt>Cuota mensual</dt><dd id="ficha-cuota"></dd></div>
+                </dl>
+            </article>
+        </section>
+
+        <!-- 3.4 ALTA DE SOCIO -->
+        <section class="panel panel-alta" aria-labelledby="titulo-alta">
+            <h2 id="titulo-alta">Alta de socio</h2>
+
+            <!-- novalidate: la validación la haces tú con JS -->
+            <form id="form-alta" class="formulario" novalidate>
+
+                <div class="campo">
+                    <label for="alta-nombre">Nombre</label>
+                    <input type="text" id="alta-nombre" autocomplete="off">
+                    <p class="error" id="error-nombre"></p>
+                </div>
+
+                <div class="campo">
+                    <label for="alta-apellidos">Apellidos</label>
+                    <input type="text" id="alta-apellidos" autocomplete="off">
+                    <p class="error" id="error-apellidos"></p>
+                </div>
+
+                <div class="campo">
+                    <label for="alta-dni">DNI</label>
+                    <input type="text" id="alta-dni" placeholder="12345678Z" maxlength="9" autocomplete="off">
+                    <p class="error" id="error-dni"></p>
+                </div>
+
+                <div class="campo">
+                    <label for="alta-email">Email</label>
+                    <input type="text" id="alta-email" placeholder="ana@correo.es" autocomplete="off">
+                    <p class="error" id="error-email"></p>
+                </div>
+
+                <div class="campo">
+                    <label for="alta-telefono">Teléfono</label>
+                    <input type="text" id="alta-telefono" placeholder="612 345 678" autocomplete="off">
+                    <p class="error" id="error-telefono"></p>
+                </div>
+
+                <div class="campo">
+                    <label for="alta-nacimiento">Fecha de nacimiento</label>
+                    <input type="text" id="alta-nacimiento" placeholder="dd/mm/aaaa" autocomplete="off">
+                    <p class="error" id="error-nacimiento"></p>
+                </div>
+
+                <fieldset class="campo actividades" id="alta-actividades">
+                    <legend>Actividades</legend>
+                    <div class="actividades-lista">
+                        <label class="check"><input type="checkbox" name="actividad" value="natación"> Natación</label>
+                        <label class="check"><input type="checkbox" name="actividad" value="yoga"> Yoga</label>
+                        <label class="check"><input type="checkbox" name="actividad" value="pádel"> Pádel</label>
+                        <label class="check"><input type="checkbox" name="actividad" value="musculación"> Musculación</label>
+                        <label class="check"><input type="checkbox" name="actividad" value="spinning"> Spinning</label>
+                        <label class="check"><input type="checkbox" name="actividad" value="pilates"> Pilates</label>
+                    </div>
+                    <p class="error" id="error-actividades"></p>
+                </fieldset>
+
+                <button type="submit" class="btn">Dar de alta</button>
+            </form>
+
+            <!-- Aviso tras el alta: "Socio Ana dado de alta con id SOC-0009" -->
+            <p id="aviso-alta" class="mensaje mensaje-ok" role="status" hidden></p>
+        </section>
+
+        <!-- 3.5 ESTADÍSTICAS -->
+        <section class="panel panel-estadisticas" aria-labelledby="titulo-estadisticas">
+            <h2 id="titulo-estadisticas">Estadísticas</h2>
+
+            <div class="estadisticas">
+                <div class="dato">
+                    <span class="dato-valor" id="est-total"></span>
+                    <span class="dato-etiqueta">Socios</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-ingresos"></span>
+                    <span class="dato-etiqueta">Ingresos al mes</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-cuota-media"></span>
+                    <span class="dato-etiqueta">Cuota media</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-edad-media"></span>
+                    <span class="dato-etiqueta">Edad media</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-edad-min"></span>
+                    <span class="dato-etiqueta">Edad mínima</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-edad-max"></span>
+                    <span class="dato-etiqueta">Edad máxima</span>
+                </div>
+                <div class="dato dato-ancho">
+                    <span class="dato-valor" id="est-popular"></span>
+                    <span class="dato-etiqueta">Actividad más popular</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-menores"></span>
+                    <span class="dato-etiqueta">¿Hay menores de edad?</span>
+                </div>
+                <div class="dato">
+                    <span class="dato-valor" id="est-todos-actividad"></span>
+                    <span class="dato-etiqueta">¿Todos con actividad?</span>
+                </div>
+            </div>
+
+            <div class="listas-estadisticas">
+                <div>
+                    <h3>Socios más veteranos</h3>
+                    <ol id="est-veteranos" class="lista-simple"></ol>
+                </div>
+                <div>
+                    <h3>Dominios de correo</h3>
+                    <ul id="est-dominios" class="lista-simple lista-etiquetas"></ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

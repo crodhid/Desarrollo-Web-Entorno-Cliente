@@ -1,0 +1,591 @@
+/* ============================================================
+   Club Deportivo · Gestor de socios
+   Paleta inspirada en una pista de pádel: azul pista, blanco de
+   línea, agua de piscina y un rojo solo para los errores.
+   ============================================================ */
+
+:root {
+    --pista: #1b4b8f;
+    --pista-oscuro: #12315e;
+    --agua: #0e8f9c;
+    --agua-claro: #d9f0f2;
+    --fondo: #eef2f7;
+    --superficie: #ffffff;
+    --tinta: #16213a;
+    --tinta-suave: #5a6579;
+    --borde: #d3dae6;
+    --error: #c0392b;
+    --error-fondo: #fdecea;
+    --ok: #1e7a4c;
+    --ok-fondo: #e4f5ec;
+
+    --radio: 8px;
+    --fuente: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--fuente);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--tinta);
+    background: var(--fondo);
+}
+
+h1, h2, h3 {
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+p {
+    margin: 0;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding: 1.75rem clamp(1rem, 4vw, 3rem);
+    color: #fff;
+    background: var(--pista);
+    overflow: hidden;
+}
+
+/* Las líneas blancas de una pista: el único adorno de la página */
+.cabecera::before {
+    content: "";
+    position: absolute;
+    inset: 10px clamp(0.5rem, 2vw, 1.5rem);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.cabecera::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 62%;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+}
+
+.cabecera h1 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 800;
+}
+
+.reloj {
+    position: relative;
+    z-index: 1;
+    text-align: right;
+}
+
+.fecha {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.hora {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums; /* los números no "bailan" al cambiar cada segundo */
+}
+
+/* ---------- Layout general ---------- */
+
+.contenedor {
+    display: grid;
+    grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+    grid-template-areas:
+        "listado ficha"
+        "listado alta"
+        "stats   stats";
+    gap: 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.5rem clamp(1rem, 3vw, 2rem) 3rem;
+}
+
+.panel-listado      { grid-area: listado; }
+.panel-ficha        { grid-area: ficha; }
+.panel-alta         { grid-area: alta; }
+.panel-estadisticas { grid-area: stats; }
+
+.panel {
+    padding: 1.5rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+.panel h2 {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+}
+
+.panel-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.panel-cabecera h2 {
+    margin-bottom: 0;
+}
+
+/* ---------- Botones ---------- */
+
+.btn {
+    padding: 0.6rem 1.1rem;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--pista);
+    border: 2px solid var(--pista);
+    border-radius: var(--radio);
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.btn:hover {
+    background: var(--pista-oscuro);
+    border-color: var(--pista-oscuro);
+}
+
+.btn-secundario {
+    color: var(--pista);
+    background: transparent;
+}
+
+.btn-secundario:hover {
+    color: #fff;
+}
+
+:focus-visible {
+    outline: 3px solid var(--agua);
+    outline-offset: 2px;
+}
+
+/* ---------- Formularios ---------- */
+
+.formulario {
+    display: grid;
+    gap: 1rem;
+}
+
+.campo {
+    display: grid;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.campo > label,
+.campo > legend,
+.actividades legend {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="search"],
+select {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    font: inherit;
+    color: var(--tinta);
+    background: #fff;
+    border: 1.5px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+input:focus,
+select:focus {
+    border-color: var(--pista);
+}
+
+.campo-fila {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.campo-fila .btn {
+    flex-shrink: 0;
+}
+
+/* Estado de error: el JS añade la clase .invalido al input
+   (o al fieldset de actividades) y escribe el texto en .error */
+.invalido,
+input.invalido,
+select.invalido {
+    border-color: var(--error);
+    background: var(--error-fondo);
+}
+
+fieldset.invalido {
+    border: 1.5px solid var(--error);
+    border-radius: var(--radio);
+}
+
+.error {
+    min-height: 0;
+    font-size: 0.85rem;
+    color: var(--error);
+}
+
+.error:empty {
+    display: none;
+}
+
+.actividades {
+    padding: 0.75rem;
+    margin: 0;
+    border: 1.5px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+.actividades-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.4rem 1rem;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.check input {
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--pista);
+}
+
+/* Mensajes (aviso de alta, error de la ficha) */
+.mensaje {
+    margin-top: 1rem;
+    padding: 0.7rem 0.9rem;
+    font-weight: 600;
+    border-radius: var(--radio);
+}
+
+.mensaje[hidden] {
+    display: none;
+}
+
+.mensaje-ok {
+    color: var(--ok);
+    background: var(--ok-fondo);
+}
+
+.mensaje-error {
+    color: var(--error);
+    background: var(--error-fondo);
+}
+
+/* ---------- Listado ---------- */
+
+.controles {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1.3fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tabla-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+th,
+td {
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+td:nth-child(5) {
+    white-space: normal; /* las actividades pueden saltar de línea */
+    min-width: 150px;
+}
+
+thead th {
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+    background: var(--fondo);
+    border-bottom: 1px solid var(--borde);
+}
+
+tbody tr + tr td {
+    border-top: 1px solid var(--borde);
+}
+
+tbody tr:hover {
+    background: var(--agua-claro);
+}
+
+.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.vacio {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--tinta-suave);
+}
+
+tbody tr:hover .vacio,
+tbody tr:has(.vacio):hover {
+    background: transparent;
+}
+
+/* Círculo con las iniciales */
+.iniciales {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--agua);
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.iniciales-grande {
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-right: 0;
+    font-size: 1.1rem;
+}
+
+/* Pantalla completa: el JS llama a requestFullscreen() sobre #seccion-listado */
+#seccion-listado:fullscreen {
+    width: 100%;
+    height: 100%;
+    padding: 2rem clamp(1rem, 4vw, 3rem);
+    overflow: auto;
+    border: none;
+    border-radius: 0;
+    background: var(--fondo);
+}
+
+#seccion-listado:fullscreen .tabla-scroll {
+    background: var(--superficie);
+}
+
+/* ---------- Ficha ---------- */
+
+.ficha {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--borde);
+}
+
+.ficha[hidden] {
+    display: none;
+}
+
+.ficha-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ficha-cabecera h3 {
+    font-size: 1.2rem;
+}
+
+.ficha-id {
+    color: var(--tinta-suave);
+    font-size: 0.9rem;
+}
+
+.ficha-datos {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+}
+
+.ficha-datos > div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.ficha-datos > div:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.ficha-datos dt {
+    font-size: 0.9rem;
+    color: var(--tinta-suave);
+}
+
+.ficha-datos dd {
+    margin: 0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- Estadísticas ---------- */
+
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+}
+
+.dato {
+    display: flex;
+    flex-direction: column-reverse; /* el valor se ve arriba aunque en el HTML va primero */
+    justify-content: flex-end;
+    gap: 0.2rem;
+    padding: 1rem;
+    background: var(--fondo);
+    border-left: 4px solid var(--pista);
+    border-radius: 0 var(--radio) var(--radio) 0;
+}
+
+.dato-ancho {
+    grid-column: span 2;
+}
+
+.dato-valor {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--pista);
+    font-variant-numeric: tabular-nums;
+}
+
+.dato-etiqueta {
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+}
+
+.listas-estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.listas-estadisticas h3 {
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+}
+
+.lista-simple {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.lista-simple li + li {
+    margin-top: 0.3rem;
+}
+
+.lista-etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.lista-etiquetas li {
+    margin: 0;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.9rem;
+    background: var(--agua-claro);
+    border-radius: 999px;
+}
+
+.lista-etiquetas li + li {
+    margin-top: 0;
+}
+
+/* ---------- Adaptación a pantallas pequeñas ---------- */
+
+@media (max-width: 960px) {
+    .contenedor {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "listado"
+            "ficha"
+            "alta"
+            "stats";
+    }
+
+    .reloj {
+        text-align: left;
+    }
+
+    .cabecera::after {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .controles {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 1rem;
+    }
+
+    .ficha-datos > div {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .dato-ancho {
+        grid-column: auto;
+    }
+
+    .panel-cabecera {
+        flex-wrap: wrap;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
