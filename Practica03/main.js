@@ -212,12 +212,12 @@ function formatoEmail(socio) {
  */
 function calculaEdad(socio) {
     let socioFecha = socio.fechaNacimiento.split("-");
-    let anioNac = Number(socioFecha[0]);
+    let añoNac = Number(socioFecha[0]);
     let mesNac = Number(socioFecha[1]);
     let diaNac = Number(socioFecha[2]);
 
     let hoy = new Date();
-    let edad = hoy.getFullYear() - anioNac;
+    let edad = hoy.getFullYear() - añoNac;
 
     // getMonth() va de 0 a 11, por eso se le suma 1
     let mesActual = hoy.getMonth() + 1;
@@ -323,3 +323,68 @@ function buscarPorInput() {
 
 //añado el evento al input
 document.getElementById("buscador").addEventListener("input",buscarPorInput);
+
+
+/**
+ * Filtra los socios por la actividad seleccionada.
+ */
+function filtroActividad() {
+    let valorActividad = document.getElementById("filtro-actividad").value;
+    let arrayAuxiliar = [];
+    if (valorActividad == "todas") {
+        pintarTablaSocios(arraySocios);
+        return;
+    }
+    for (const elem of arraySocios) {
+        if (elem.actividades.includes(valorActividad)) {
+            arrayAuxiliar.push(elem);
+        }
+    }
+    pintarTablaSocios(arrayAuxiliar);
+
+}
+//añado el evento
+document.getElementById("filtro-actividad").addEventListener("change", filtroActividad);
+
+function ordenarTabla() {
+    let valorOrdenar = document.getElementById("orden").value;
+    let arrayAuxiliar = arraySocios;
+    switch (valorOrdenar) {
+        case "nombre":
+            arrayAuxiliar.sort((a,b) => a.nombre.localeCompare(b.nombre));
+            pintarTablaSocios(arrayAuxiliar);
+            break;
+        case "apellidos":
+            arrayAuxiliar.sort((a,b) => a.apellidos.localeCompare(b.apellidos));
+            break;
+        case "jovenes":
+            arrayAuxiliar.sort((a,b) => calculaEdad(a) - calculaEdad(b));
+            break;
+        case "antiguos":
+
+        default:
+            break;
+    }
+}
+
+
+function calcularAntiguedad(arraySocios) {
+    let socioFecha = socio.fechaAlta.split("-");
+    let añoAlta = Number(socioFecha[0]);
+    let mesAlta = Number(socioFecha[1]);
+    let diaAlta = Number(socioFecha[2]);
+
+    let hoy = new Date();
+    let edad = hoy.getFullYear() - añoAlta;
+
+    // getMonth() va de 0 a 11, por eso se le suma 1
+    let mesActual = hoy.getMonth() + 1;
+    let diaActual = hoy.getDate();
+
+    if (mesAlta > mesActual || (mesAlta === mesActual && diaAlta > diaActual)) {
+        edad--;
+    }
+
+    return edad;
+
+}
