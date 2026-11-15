@@ -71,18 +71,7 @@
                         </tr>
                     </thead>
                     <tbody id="cuerpo-tabla">
-                        <!-- Filas generadas por JS. Ejemplo de la estructura de una fila:
-                        <tr>
-                            <td><span class="iniciales">LM</span> SOC-0001</td>
-                            <td>Lucía Martín R.</td>
-                            <td>lu**********@correo.es</td>
-                            <td class="num">31</td>
-                            <td>natación, yoga</td>
-                            <td class="num">35.00 €</td>
-                        </tr>
-                        Fila de "sin resultados":
-                        <tr><td colspan="6" class="vacio">No hay socios que coincidan</td></tr>
-                        -->
+                        
                     </tbody>
                 </table>
             </div>
@@ -97,7 +86,8 @@
                     <label for="ficha-dni">DNI</label>
                     <div class="campo-fila">
                         <input type="text" id="ficha-dni" placeholder="12345678Z" maxlength="9" autocomplete="off">
-                        <button type="submit" class="btn">Ver ficha</button>
+                        <button type="submit" class="btn" id="buscarSocio">Ver ficha</button>
+                        <p id="errorBuscar"></p>
                     </div>
                 </div>
             </form>
@@ -113,16 +103,7 @@
                     </div>
                 </header>
 
-                <dl class="ficha-datos">
-                    <div><dt>DNI</dt><dd id="ficha-dni-dato"></dd></div>
-                    <div><dt>Email</dt><dd id="ficha-email"></dd></div>
-                    <div><dt>Teléfono</dt><dd id="ficha-telefono"></dd></div>
-                    <div><dt>Nacimiento</dt><dd id="ficha-nacimiento"></dd></div>
-                    <div><dt>Alta</dt><dd id="ficha-alta"></dd></div>
-                    <div><dt>Próximo cumpleaños</dt><dd id="ficha-cumple"></dd></div>
-                    <div><dt>Actividades</dt><dd id="ficha-actividades"></dd></div>
-                    <div><dt>Cuota mensual</dt><dd id="ficha-cuota"></dd></div>
-                </dl>
+                
             </article>
         </section>
 
