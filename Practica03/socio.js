@@ -8,6 +8,7 @@ let nacDato = document.getElementById("ficha-nacimiento");
 let altaDato = document.getElementById("ficha-alta");
 let actsDato = document.getElementById("ficha-actividades");
 let cuotaDato = document.getElementById("ficha-cuota");
+let curiosidades = document.getElementById("ficha-curiosidades");
 
 // socio a recibir de la primera ventana
 let socioRecibido = null;
@@ -20,6 +21,17 @@ let socioRecibido = null;
 function recibirMensaje(objeto) {
     socioRecibido = objeto;
 
+    let nombre = socioRecibido.nombre + socioRecibido.apellidos;
+    nombre = normalizar(nombre);
+    let curiosidadesNum = 0;
+    for (let i = 0; i < nombre.length; i++) {
+        if ((nombre.charAt(i) == "a") || (nombre.charAt(i) == "e") || (nombre.charAt(i) == "i") ||
+                (nombre.charAt(i) == "o") || (nombre.charAt(i) == "u")) {
+            curiosidadesNum++;
+        }
+        
+    }
+
     iniciales.textContent = window.opener.formatoId(socioRecibido);
     nombreDato.textContent = socioRecibido.nombre + " " + socioRecibido.apellidos;
     idDato.textContent = socioRecibido.id;
@@ -28,6 +40,7 @@ function recibirMensaje(objeto) {
     tlfDato.textContent = socioRecibido.telefono;
     nacDato.textContent = socioRecibido.fechaNacimiento;
     altaDato.textContent = socioRecibido.fechaAlta;
+    curiosidades.textContent = "El nombre del socio tiene " + curiosidadesNum + " vocales";
     // estas funciones están en la página padre, por eso van con window.opener
     actsDato.textContent = window.opener.mostrarActividades(socioRecibido);
     cuotaDato.textContent = window.opener.mostrarCuota(socioRecibido);
@@ -41,6 +54,20 @@ window.onload = () => {
 };
 
 
+/**
+ * Pasa a minúsculas y quita las tildes
+ * @param {string} texto
+ * @returns {string}
+ */
+function normalizar(texto) {
+    return texto
+        .toLowerCase()
+        .replace(/[áàäâ]/g, "a")
+        .replace(/[éèëê]/g, "e")
+        .replace(/[íìïî]/g, "i")
+        .replace(/[óòöô]/g, "o")
+        .replace(/[úùüû]/g, "u");
+}
 
 // // Envía el contenido del campo a la ventana principal, en este caso no me hace nada no me serviria
 // function enviarPrincipal() {

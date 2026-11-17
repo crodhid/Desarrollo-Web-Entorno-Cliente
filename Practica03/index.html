@@ -54,6 +54,7 @@
                         <option value="apellidos">Apellidos</option>
                         <option value="jovenes">Más jóvenes primero</option>
                         <option value="antiguos">Más antiguos primero</option>
+                        <option value="cuota">Cuota más alta primero</option>
                     </select>
                 </div>
             </div>
@@ -68,6 +69,7 @@
                             <th scope="col" class="num">Edad</th>
                             <th scope="col">Actividades</th>
                             <th scope="col" class="num">Cuota</th>
+                            <th scope="col" >Antiguedad</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpo-tabla">
@@ -148,6 +150,12 @@
                     <label for="alta-nacimiento">Fecha de nacimiento</label>
                     <input type="text" id="alta-nacimiento" placeholder="dd/mm/aaaa" autocomplete="off">
                     <p class="error" id="error-nacimiento"></p>
+                </div>
+
+                <div class="campo">
+                    <label for="alta-cuota">Cuota</label>
+                    <input type="text" id="alta-cuota"  autocomplete="off">
+                    <p class="error" id="error-cuota"></p>
                 </div>
 
                 <fieldset class="campo actividades" id="alta-actividades">

@@ -283,6 +283,7 @@ function pintarTablaSocios(listaSocios) {
                 <td class="num">${calculaEdad(socio)}</td>
                 <td>${mostrarActividades(socio)}</td>
                 <td class="num">${mostrarCuota(socio)}</td>
+                <td >${calcularAntiguedad(socio)}</td>
             </tr>`;
     }
 
@@ -373,6 +374,8 @@ function ordenarTabla(arrayAuxiliar) {
             break;
         case "antiguos":
             arrayAuxiliar.sort((a, b) => a.fechaAlta.localeCompare(b.fechaAlta));
+        case "cuota":
+            arrayAuxiliar.sort((a,b) => b.cuota - a.cuota);
             break;
     }
 
@@ -397,12 +400,16 @@ function calcularAntiguedad(socio) {
     // getMonth() va de 0 a 11, por eso se le suma 1
     let mesActual = hoy.getMonth() + 1;
     let diaActual = hoy.getDate();
+    let mesResultado = mesActual - mesAlta;
 
     if (mesAlta > mesActual || (mesAlta === mesActual && diaAlta > diaActual)) {
         edad--;
     }
 
-    return edad;
+    if (mesResultado == 0) {
+        return edad + (edad==1?" año ":" años ");
+    }
+    return edad + (edad==1?" año, ":" años, ") + mesResultado +  (mesResultado==1?" mes":" meses");
 }
 
 
@@ -412,6 +419,7 @@ function calcularAntiguedad(socio) {
  * las dos listas), ordena el resultado y pinta la tabla.
  */
 function actualizarTabla() {
+    pintarTablaSocios(arraySocios)
     let arrayTexto = buscarPorInput();
     let arrayActividad = filtroActividad();
 
@@ -510,6 +518,7 @@ let emailAlta = document.getElementById("alta-email");
 let telefonoAlta = document.getElementById("alta-telefono");
 let nacAlta = document.getElementById("alta-nacimiento");
 let actsAlta = document.getElementById("alta-actividades");
+let cuotaAlta = document.getElementById("alta-cuota");
 
 //p errores
 let errorNombre = document.getElementById("error-nombre");
@@ -519,6 +528,7 @@ let errorEmail = document.getElementById("error-email");
 let errorTlf = document.getElementById("error-telefono");
 let errorNac = document.getElementById("error-nacimiento");
 let errorActs = document.getElementById("error-actividades");
+let errorCuota = document.getElementById("error-cuota");
 
 
 
@@ -700,6 +710,18 @@ function mayusculaPrimera(texto) {
 }
 
 /**
+ * Función que me valida una cuota siguiendo una expresión regular
+ * @param {*} cuota 
+ */
+function validaCuota(cuota) {
+    let regexCuota = /^\d{1,3}\.|,{1}\d{1,2}$/;
+    
+    return regexCuota.test(cuota);
+
+}
+
+
+/**
  * Valida el formulario de alta. Si hay errores, los escribe en el párrafo de cada campo;
  * si todo es correcto, añade el socio con el formato del array, vacía el formulario,
  * avisa y actualiza el listado.
@@ -714,6 +736,7 @@ function añadeSocio(e) {
     let email = emailAlta.value.trim();
     let telefono = telefonoAlta.value.replace(/\s/g, "");   // se admiten espacios al escribirlo
     let nac = nacAlta.value.trim();
+    let cuota = cuotaAlta.value;
 
     // actsAlta es el fieldset y no tiene value: se recorren los checkboxes y se guardan los marcados
     let checks = document.querySelectorAll('input[name="actividad"]');
@@ -732,6 +755,7 @@ function añadeSocio(e) {
     errorTlf.textContent = "";
     errorNac.textContent = "";
     errorActs.textContent = "";
+    errorCuota.textContent = "";
     avisoAlta.hidden = true;
 
     //  quito también el rojo de los campos de la vez anterior
@@ -742,6 +766,7 @@ function añadeSocio(e) {
     telefonoAlta.style.border = "";
     nacAlta.style.border = "";
     actsAlta.style.border = "";
+    cuotaAlta.style.border = "";
 
     let hayErrores = false;
 
@@ -791,6 +816,12 @@ function añadeSocio(e) {
         hayErrores = true;
     }
 
+    if (!validaCuota(cuota)) {
+        errorCuota.textContent = "No tiene el formato ddd.|,dd";
+        cuotaAlta.style.border = "2px solid red";   
+        hayErrores = true;
+    }
+
     if (hayErrores) {
         return;
     }
@@ -806,15 +837,14 @@ function añadeSocio(e) {
         fechaNacimiento: nac.split("/").reverse().join("-"),   // dd/mm/aaaa -> aaaa-mm-dd
         fechaAlta: fechaAltaHoy(),     
         actividades: acts,
-        cuota: 30   // cuota puesta a mano
+        cuota: new Number(cuota)   
     };
 
     arraySocios.push(socioNuevo);
-
     formAlta.reset();
     avisoAlta.textContent = "Socio " + socioNuevo.nombre + " dado de alta con id " + socioNuevo.id;
     avisoAlta.hidden = false;
-
+    
     actualizarTabla();   
     estadisticas();
 
