@@ -29,3 +29,35 @@ function ocultar(e) {
             break;
     }
 }
+
+const info = document.getElementById("info");
+
+/**
+ * Función para comprobar que teclas se presionan, con alt+n la reseteamos mi parrafo pero con 
+ * ctrl+n no podriamos ya que es una funcion de chrome
+ */
+// document.addEventListener("keydown", (e)=>{
+//     e.preventDefault();
+//     info.innerHTML += "Tipo: " + e.type + " Tecla pulsada: " + e.key +  " Código:" + e.code + "<br>";
+//     if (e.code == "KeyN" && e.altKey) {
+//         info.textContent = "";
+//     }
+//     if (e.key == "KeyN" && e.ctrlKey) {
+//         info.textContent = "";
+//     }
+// })
+
+infoRaton = document.getElementById("infoRaton");
+
+document.addEventListener("mousemove", (e) =>{
+    e.preventDefault();
+    infoRaton.innerHTML = "Coordenada X: " + e.pageX + " Coordenada Y: " + e.pageY; 
+})
+
+
+enviarForm = document.getElementById("enviarForm");
+
+enviarForm.addEventListener("click", (e)=>{
+    e.preventDefault();
+
+})
