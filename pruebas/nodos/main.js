@@ -220,3 +220,26 @@ for(let elem of listaPaises.children){
 }
 
 console.log(listaPaises.firstElementChild);
+
+/**
+ * Paises
+ */
+//sacamos todos los elementos que sean li dentro de mi listaPaises
+
+let elementosListaPaises = listaPaises.getElementsByTagName("li");
+
+for (const paises of elementosListaPaises) {
+    paises.addEventListener("click", pulsaPais);
+}
+
+function pulsaPais(e) {
+
+    // console.log(`e.target ${e.target} y e.currentarget = ${e.currentTarget}`)
+    //Esto comprueba si en la lista solo queda 1, entonces borramos la lista entera
+    if(e.target.parentNode.getElementsByTagName("li").length == 1){
+        e.target.parentNode.remove();
+    }else{
+        //borramos el elemento sobre el que se pincha
+        e.target.remove();
+    }
+}
